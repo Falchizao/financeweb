@@ -1,0 +1,21 @@
+${AnsiColor.YELLOW} * **   ** ***  * *             * **   ** ***  * *              * **   ** ***  * * * **   ** ***  * *
+${AnsiColor.YELLOW}* *  **   *    *   ***         * *  **   *    *   ***      * *  **   *    *   ***  * *  **   *    *   ***
+${AnsiColor.YELLOW}                 *                 *                 *                 *                 *                 *
+${AnsiColor.YELLOW} *       *      * * *       *      * * *       *      * * *       *      * * *       *      * * *       *      * *
+${AnsiColor.YELLOW}                                *                               *                           *                 *
+${AnsiColor.YELLOW}   * *    **  * *    **   * *    **    * *    **    * *    **  * *    **  * *    **     * *    **   * *    **
+${AnsiColor.YELLOW}*                          *                           *                       *                       *
+${AnsiColor.YELLOW}    *          * *    *          * *    *          * *    *          * *    *          * *    *          * *
+${AnsiColor.YELLOW}      * *            *      * *            *      * *            *      * *            *      * *
+${AnsiColor.YELLOW}
+${AnsiColor.YELLOW}            *            *            *            *            *            *            *            *
+${AnsiColor.YELLOW}  *          *     ** *          *     ** *          *     ** *          *     ** *          *     **
+${AnsiColor.GREEN}  Marcelo Falchi Navarro RA 2297787
+${AnsiColor.MAGENTA} ________    _
+${AnsiColor.MAGENTA}|_   __  |  (_)                                                  _                     __             _
+${AnsiColor.MAGENTA}  | |_ \_|  __    _ .--.    ,--.    _ .--.    .---.   .---.
+${AnsiColor.MAGENTA}  |  _|    [  |  [ `.-. |  `'_\ :  [ `.-. |  / /'`\] / /__\\
+${AnsiColor.MAGENTA} _| |_      | |   | | | |  // | |,  | | | |  | \__.  | \__.,
+${AnsiColor.MAGENTA}|_____|    [___] [___||__] \'-;__/ [___||__] '.___.'  '.__.'
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
