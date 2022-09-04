@@ -1,5 +1,7 @@
 package br.edu.utfpr.pb.pw25s.server;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import br.edu.utfpr.pb.pw25s.server.handler.modelException.ApiError;
 import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.UserRepository;
 import br.edu.utfpr.pb.pw25s.server.utils.GenericResponse;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -63,7 +66,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserisValid_passwordisHashedInDatabase(){
         User user = createValidUser();
-        testRestTemplate.postForEntity("/users", user, Object.class);
+        testRestTemplate.postForEntity("/api/users", user, Object.class);
 
         List<User> userList = userRepository.findAll();
         User userDB = userList.get(0);
@@ -74,9 +77,28 @@ public class UserControllerTest {
     public void postUser_whenuserHasNullUsername_receiveBadRequest(){
         User user = createValidUser();
         user.setUsername("");
-        ResponseEntity<Object>  response = testRestTemplate.postForEntity("/users", user, Object.class);
+        ResponseEntity<Object>  response = testRestTemplate.postForEntity("/api//users", user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    public void postUser_whenUserIsInvalid_receiveMessageOfNullUsername(){
+        User user = new User();
+        ResponseEntity<ApiError> response = testRestTemplate.postForEntity("/api/users", user, ApiError.class);
+
+        Map<String, String> validationErrors = response.getBody().getValidationErrors();
+        assertThat(validationErrors.get("username")).isEqualTo("O 'usuario' nao pode ser nulo");
+    }
+
+    @Test
+    public void postUser_whenAnotherUserHasSameUsername_receiveBadRequest(){
+        userRepository.save(createValidUser());
+        User user = createValidUser();
+        ResponseEntity<Object> response = testRestTemplate.postForEntity("/api/users", user, Object.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
     private User createValidUser(){
