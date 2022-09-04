@@ -1,22 +1,16 @@
 package br.edu.utfpr.pb.pw25s.server.model;
 
 import br.edu.utfpr.pb.pw25s.server.enums.TransactionType;
+import br.edu.utfpr.pb.pw25s.server.generic.IModel;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity(name = "tb_movimentation")
-public class Movimentation {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Movimentation extends IModel {
 
     @Getter
     @Setter
