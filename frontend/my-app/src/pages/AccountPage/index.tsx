@@ -2,7 +2,7 @@ function Account() {
     return (
         <>
             {/* <NavBar /> */}
-            <h1>AccountPage</h1>
+            <p>AccountPage</p>
             {/* <Footer /> */}
         </>
     );

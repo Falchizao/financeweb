@@ -2,7 +2,7 @@ function Category() {
     return (
         <>
             {/* <NavBar /> */}
-            <h1>CategoryPage</h1>
+            <p>CategoryPage</p>
             {/* <Footer /> */}
         </>
     );

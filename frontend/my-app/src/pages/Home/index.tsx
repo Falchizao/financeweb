@@ -2,7 +2,7 @@ function Home() {
     return (
         <>
             {/* <NavBar /> */}
-            <h1>HomePage</h1>
+            <p>HomePage</p>
             {/* <Footer /> */}
         </>
     );
