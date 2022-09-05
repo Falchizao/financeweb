@@ -1,8 +1,8 @@
-import Routes from "./Routes";
+import WebRoutes from "./Routes";
 
 function App() {
   return (
-    <Routes />
+    <WebRoutes />
   );
 }
 

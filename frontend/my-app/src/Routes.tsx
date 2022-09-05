@@ -3,13 +3,13 @@ import Account from './pages/AccountPage';
 import Movimentation from './pages/MovimentationPage';
 import User from './pages/UserPage';
 import Home from './pages/Home';
-import { BrowserRouter as Router, Routes as Links, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 
-function Routes() {
+function WebRoutes() {
     return (
-        <Router>
-            <Links >
-                <Route path="/" >
+        <BrowserRouter>
+            <Routes >
+                <Route path="/Home" >
                     <Home />                     
                 </Route>
                 <Route path="/Category">
@@ -24,9 +24,9 @@ function Routes() {
                 <Route path="/User">
                     <User />                     
                 </Route>
-            </Links>        
-        </Router>
+            </Routes>        
+        </BrowserRouter>
     );
 }
 
-export default Routes;
+export default WebRoutes;

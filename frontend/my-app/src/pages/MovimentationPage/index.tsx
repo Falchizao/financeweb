@@ -2,7 +2,7 @@ function Movimentation() {
     return (
         <>
             {/* <NavBar /> */}
-            <h1>MovimentationPage</h1>
+            <p>MovimentationPage</p>
             {/* <Footer /> */}
         </>
     );

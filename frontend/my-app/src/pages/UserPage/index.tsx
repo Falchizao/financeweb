@@ -2,7 +2,7 @@ function User() {
     return (
         <>
             {/* <NavBar /> */}
-            <h1>UserPage</h1>
+            <p>UserPage</p>
             {/* <Footer /> */}
         </>
     );
