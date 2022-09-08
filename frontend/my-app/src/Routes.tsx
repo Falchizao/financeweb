@@ -9,24 +9,18 @@ function WebRoutes() {
     return (
         <BrowserRouter>
             <Routes >
-                <Route path="/Home" >
-                    <Home />                     
+                <Route path="/" element={<Home />  } >    
                 </Route>
-                <Route path="/Category">
-                    <Category />                     
+                <Route path="/Category" element={<Category />}>                                         
                 </Route>
-                <Route path="/Account">
-                    <Account />                     
+                <Route path="/Account" element={<Account />}>                                         
                 </Route>
-                <Route path="/Movimentation">
-                    <Movimentation />                     
+                <Route path="/Movimentation" element={<Movimentation />}>                                         
                 </Route>
-                <Route path="/User">
-                    <User />                     
+                <Route path="/User" element={<User />}>                                         
                 </Route>
             </Routes>        
         </BrowserRouter>
     );
 }
-
 export default WebRoutes;
