@@ -1,9 +1,12 @@
+import Footer from "../../components/footer";
+import NavBar from "../../components/navbar";
+
 function Account() {
     return (
         <>
-            {/* <NavBar /> */}
+            <NavBar />
             <p>AccountPage</p>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }

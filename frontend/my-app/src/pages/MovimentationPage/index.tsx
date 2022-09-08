@@ -1,9 +1,12 @@
+import Footer from "../../components/footer";
+import NavBar from "../../components/navbar";
+
 function Movimentation() {
     return (
         <>
-            {/* <NavBar /> */}
+            <NavBar />
             <p>MovimentationPage</p>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }

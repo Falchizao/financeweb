@@ -1,9 +1,12 @@
+import Footer from "../../components/footer";
+import NavBar from "../../components/navbar";
+
 function Category() {
     return (
         <>
-            {/* <NavBar /> */}
+            <NavBar />
             <p>CategoryPage</p>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }

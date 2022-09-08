@@ -1,9 +1,12 @@
+import Footer from "../../components/footer";
+import NavBar from "../../components/navbar";
+
 function User() {
     return (
         <>
-            {/* <NavBar /> */}
+            <NavBar />
             <p>UserPage</p>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }

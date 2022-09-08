@@ -1,9 +1,12 @@
+import Footer from "../../components/footer";
+import NavBar from "../../components/navbar";
+
 function Home() {
     return (
         <>
-            {/* <NavBar /> */}
-            <p>HomePage</p>
-            {/* <Footer /> */}
+            <NavBar/>
+            <p>Hero</p>
+            <Footer />  
         </>
     );
 }
