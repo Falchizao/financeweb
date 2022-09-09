@@ -6,21 +6,26 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity(name = "tb_movimentation")
 public class Movimentation extends IModel {
 
+    @NotNull
     @Getter
     @Setter
     @OneToOne
     private Account account;
 
+    @NotNull
     @Getter
     @Setter
     private BigDecimal value;
 
+    @NotNull
     @Getter
     @Setter
     private Date due_date;
@@ -33,6 +38,7 @@ public class Movimentation extends IModel {
     @Setter
     private Date paymentDate;
 
+    @NotNull
     @Getter
     @Setter
     @OneToOne
@@ -40,8 +46,10 @@ public class Movimentation extends IModel {
 
     @Getter
     @Setter
+    @Size(min = 4, max = 255)
     private String description;
 
+    @NotNull
     @Getter
     @Setter
     private TransactionType type;
