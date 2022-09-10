@@ -1,22 +1,26 @@
 import GithubLogo from '../../assets/img/github.svg' ;
 import { Link } from 'react-router-dom';
+import './styles.css'
 
 function NavBar() {
     return (
-        <div className="navbar navbar-expand-lg navbar-light bg-dark">
-            <a className="navbar-brand" href="#">Pw25</a>
-            <button className="navbar-toggler" type="button" ></button>
-            <div className=" text-white" id="navbarNavAltMarkup">
-                <div className="navbar-nav">
-                <Link className="btn btn-primary btn-lg" to="/">Home</Link>
-                <Link className="btn btn-primary btn-lg" to="/Account">Account</Link>
-                <Link className="btn btn-primary btn-lg" to="/Category">Category</Link>
-                <Link className="btn btn-primary btn-lg" to="/Login">LogOut</Link>
-                <Link className="btn btn-primary btn-lg" to="/Movimentation">Movimentation</Link>
-                <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
-                </div>
+        <header>
+            <div className="falchi-navbar-container">
+                    <p>Finance Web</p>
+                    <Link className="btn btn-primary" to="/">Home</Link>
+                    <Link className="btn btn-primary" to="/Account">Account</Link>
+                    <Link className="btn btn-primary" to="/Category">Category</Link>
+                    <Link className="btn btn-primary" to="/Movimentation">Movimentation</Link>
+                    <Link className="btn btn-primary" to="/Login">LogOut</Link>
+                    <div className='d-flex'>
+                        <p>
+                            Repositório: <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
+                        </p>
+                    </div>
+
             </div>
-        </div>
+        </header>
+
     );
 }
 
