@@ -5,7 +5,7 @@ function User() {
     return (
         <>
             <NavBar />
-            <p>UserPage</p>
+            <p>Your Account</p>
             <Footer />
         </>
     );

@@ -1,11 +1,12 @@
 import Footer from "../../components/footer";
 import NavBar from "../../components/navbar";
+import PendingTransactions from "../../components/pendingtransactions";
 
 function Home() {
     return (
         <>
             <NavBar/>
-            <p>Hero</p>
+            <PendingTransactions/>
             <Footer />  
         </>
     );
