@@ -1,0 +1,15 @@
+.falchi-edit-btn {
+    height: 45px;
+    width: 45px;
+    background: rgba(219, 231, 50, 0.1);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.falchi-edit-btn img {
+    width: 30px;
+}
