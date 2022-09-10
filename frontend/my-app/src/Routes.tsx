@@ -17,7 +17,7 @@ function WebRoutes() {
                 </Route>
                 <Route path="/Movimentation" element={<Movimentation />}>                                         
                 </Route>
-                <Route path="/User" element={<User />}>                                         
+                <Route path="/Login" element={<User />}>                                         
                 </Route>
             </Routes>        
         </BrowserRouter>
