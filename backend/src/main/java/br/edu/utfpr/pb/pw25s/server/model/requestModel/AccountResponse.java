@@ -7,6 +7,10 @@ import lombok.Setter;
 
 public class AccountResponse {
 
+    @Setter
+    @Getter
+    private Long id;
+
     @Getter
     @Setter
     private User user;

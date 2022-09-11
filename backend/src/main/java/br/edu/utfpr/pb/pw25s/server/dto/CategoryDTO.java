@@ -5,6 +5,10 @@ import lombok.Setter;
 
 public class CategoryDTO {
 
+    @Setter
+    @Getter
+    private Long id;
+
     @Getter
     @Setter
     private String name;

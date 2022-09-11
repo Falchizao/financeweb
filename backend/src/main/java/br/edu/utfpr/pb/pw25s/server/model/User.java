@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 public class User extends IModel {
 
     @NotNull
-    @UniqueUsername
     @Size(min = 4, max = 255)
     @Getter
     @Setter

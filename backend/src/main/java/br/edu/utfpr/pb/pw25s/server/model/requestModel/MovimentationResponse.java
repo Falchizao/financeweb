@@ -10,6 +10,10 @@ import java.util.Date;
 
 public class MovimentationResponse {
 
+    @Setter
+    @Getter
+    private Long id;
+
     @Getter
     @Setter
     private Account account;

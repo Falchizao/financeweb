@@ -30,7 +30,7 @@ public class AccountCRUDService extends IService<AccountDTO> {
         List<Account> accounts = accountRepository.findAll();
 
         return accounts.stream()
-                .map(category -> modelMapper.map(accounts, AccountDTO.class))
+                .map(account -> modelMapper.map(account, AccountDTO.class))
                 .collect(Collectors.toList());
     }
 

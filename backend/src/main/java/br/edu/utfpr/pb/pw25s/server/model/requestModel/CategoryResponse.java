@@ -5,6 +5,10 @@ import lombok.Setter;
 
 public class CategoryResponse {
 
+    @Setter
+    @Getter
+    private Long id;
+
     @Getter
     @Setter
     private String name;
