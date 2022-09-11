@@ -9,9 +9,9 @@ type Props = {
 }
 
 function handleClick(editID : number){
-    axios.put(`${BASE_URL}/api/${id}`)
+    axios.put(`${BASE_URL}/api/${editID}`)
         .then(response => {
-            toast.info("Deleted with success");
+            console.log("gogogo edit saporra")
         });
 }
 
