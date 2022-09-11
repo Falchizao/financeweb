@@ -9,11 +9,12 @@ import EditButton from "../editbutton"
 function CategoryCard() {
 
     const [categories, setCategories] = useState<Category[]>([]);
+    const categoriesUrl = '/api/category';
 
     useEffect(() => {
         axios.get(`${BASE_URL}/api/category`)
             .then(response => {
-                setCategories(response.data.content);
+                setCategories(response.data);
             });
     }, []);
 
@@ -26,10 +27,10 @@ function CategoryCard() {
             <div>
                 <table className="card-table">
                     <thead>
-                        <tr className="pe-10">
-                            <th className="nd">Categories</th>
-                            <th className="nd">Edit</th>
-                            <th className="nd">Delete</th>
+                        <tr>
+                            <th>Categories</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +42,7 @@ function CategoryCard() {
                                         <EditButton id={categorie.id}/>
                                     </td>
                                     <td>
-                                        <DeleteButton id={categorie.id}/>
+                                        <DeleteButton id={categorie.id} url={categoriesUrl} />
                                     </td>
                                 </tr>
                             )

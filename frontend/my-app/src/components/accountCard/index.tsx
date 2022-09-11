@@ -10,10 +10,12 @@ function AccountCard() {
 
     const [accounts, setAccounts] = useState<Account[]>([]);
 
+    const accountsUrl = '/api/account';
+
     useEffect(() => {
         axios.get(`${BASE_URL}/api/account`)
             .then(response => {
-                setAccounts(response.data.content);
+                setAccounts(response.data);
             });
     }, []);
 
@@ -26,22 +28,22 @@ function AccountCard() {
             <div>
                 <table className="card-table">
                     <thead>
-                        <tr className="pe-10">
-                            <th className="nd">User</th>
-                            <th className="nd">Code</th>
-                            <th className="nd">Bank Branch</th>
-                            <th className="nd">Bank</th>
-                            <th className="nd">Type</th>
-                            <th className="nd">Edit</th>
-                            <th className="nd">Delete</th>
+                        <tr>
+                            <th>User</th>
+                            <th>Code</th>
+                            <th>Bank Branch</th>
+                            <th>Bank</th>
+                            <th>Type</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {accounts.map(account => {
                             return (
-                                <tr key={account.code}>
+                                <tr key={account.id}>
                                     <td>{account.user.displayname}</td>
-                                    <td>{account.user.displayname}</td>
+                                    <td>{account.code}</td>
                                     <td>{account.bank_branch}</td>
                                     <td>{account.bank}</td>
                                     <td>{account.accountType}</td>
@@ -49,7 +51,7 @@ function AccountCard() {
                                         <EditButton id={account.id}/>
                                     </td>
                                     <td>
-                                        <DeleteButton id={account.id} />
+                                        <DeleteButton id={account.id} url={accountsUrl} />
                                     </td>
                                 </tr>
                             )

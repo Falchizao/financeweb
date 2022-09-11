@@ -5,19 +5,21 @@ import { BASE_URL } from '../../utils/requests'
 import './styles.css'
 
 type Props = {
-    id: number
+    id: number,
+    url: string
 }
 
-function handleClick(deletionID : number){
-    axios.delete(`${BASE_URL}/api`)
+function handleClick(deletionID : number, url: string){
+    let urlDel = BASE_URL.concat(url);
+    axios.delete(`${urlDel}/${deletionID}`)
         .then(response => {
             toast.info("Deleted with success");
         });
 }
 
-function DeleteButton( {id} : Props ){
+function DeleteButton( {id, url} : Props ){
     return(
-        <div className="falchi-del-btn" onClick={() => handleClick(id)}>
+        <div className="falchi-del-btn" onClick={() => handleClick(id, url)}>
             <img src={addbtn} alt="Delete" />    
         </div>
     )

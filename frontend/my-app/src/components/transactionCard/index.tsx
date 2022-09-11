@@ -9,11 +9,12 @@ import EditButton from "../editbutton"
 function TransactionsCard(){
 
     const [movimentations, setMov] = useState<Movimentation[]>([]);
+    const transactionUrl = '/api/movimentation';
 
     useEffect(() => {
         axios.get(`${BASE_URL}/api/movimentation`)
             .then(response => {
-                setMov(response.data.content);
+                setMov(response.data);
             });
     }, []);
 
@@ -27,15 +28,15 @@ function TransactionsCard(){
             <div>
                 <table className="card-table">
                     <thead>
-                        <tr className="pe-10">
-                            <th className="nd">Account</th>
-                            <th className="nd">Value</th>
-                            <th className="nd">Payment Day</th>
-                            <th className="nd">Due Date</th>
-                            <th className="nd">Category</th>
-                            <th className="nd">Description</th>
-                            <th className="nd">Edit</th>
-                            <th className="nd">Delete</th>
+                        <tr>
+                            <th>Account</th>
+                            <th>Value</th>
+                            <th>Payment Day</th>
+                            <th>Due Date</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +44,7 @@ function TransactionsCard(){
                             return (
                                 <tr key={mov.id}>
                                     <td>{mov.account.code}</td>
-                                    <td>{mov.value}</td>
+                                    <td>R$ {mov.value.toFixed(2)}</td>
                                     <td>{mov.paymentDate}</td>
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
@@ -52,7 +53,7 @@ function TransactionsCard(){
                                         <EditButton id={mov.id}/>
                                     </td>
                                     <td>
-                                        <DeleteButton id={mov.id} />
+                                        <DeleteButton id={mov.id} url={transactionUrl} />
                                     </td>
                                 </tr>
                             )
