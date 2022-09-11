@@ -60,7 +60,6 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
         log.info("Deleting category...");
 
         categoryRepository.deleteById(id);
-
     }
 
     @Override

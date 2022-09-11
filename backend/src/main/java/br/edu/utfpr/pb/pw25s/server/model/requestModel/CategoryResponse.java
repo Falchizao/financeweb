@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class CategoryResponse {
+
     @Getter
     @Setter
     private String name;

@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/movimentation")
 public class MovimentationController extends IController<MovimentationResponse, ResponseEntity<?>, MovimentationRequest> {
 
     private final MovimentationCRUDService movimentationCRUDService;
