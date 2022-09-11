@@ -14,7 +14,7 @@ function NavBar() {
                     <Link className="btn btn-primary" to="/Login">LogOut</Link>
                     <div className='d-flex'>
                         <p>
-                            Repositório: <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
+                            Repository <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
                         </p>
                     </div>
 

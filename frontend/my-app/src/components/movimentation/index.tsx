@@ -1,15 +1,14 @@
-import AddButton from "../addbutton"
-import DeleteButton from "../deleteButton"
-import EditButton from "../editbutton"
+import TransactionsCard from "../transactionCard"
+import './styles.css'
 
 function TransactionPage(){
     return(
         <>
-            <h1>Transaction Page</h1>
-            <h1>Add a new Transaction</h1>
-            <AddButton/ >
-            <EditButton/>
-            <DeleteButton/>
+            <section id="movimentations">
+                <div className="falchi-container">
+                    <TransactionsCard/>
+                </div>
+            </section>
         </>
     )
 }

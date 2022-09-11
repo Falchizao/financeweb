@@ -1,15 +1,13 @@
-import AddButton from "../addbutton"
-import DeleteButton from "../deleteButton"
-import EditButton from "../editbutton"
+import CategoryCard from "../categoryCard"
 
 function CategoryPage(){
     return(
         <>
-            <h1>Account Page</h1>
-            <h1>Add a new Category or edit it</h1>
-            <AddButton/ >
-            <EditButton/>
-            <DeleteButton/>
+            <section id="categories">
+                <div className="falchi-container">
+                    <CategoryCard/>
+                </div>
+            </section>
         </>
     )
 }

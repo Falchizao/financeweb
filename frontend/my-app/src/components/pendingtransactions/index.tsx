@@ -1,11 +1,14 @@
-import EditButton from "../editbutton"
+import PendingTransactionsCard from "../pendingTransactionCard"
+import './styles.css'
 
 function PendingTransactions(){
     return(
         <>
-            <h1>PendingTransactions Page</h1>
-            <h1>Edit Transactions Page</h1>
-            <EditButton/>
+            <section id="pending">
+                <div className="falchi-container">
+                    <PendingTransactionsCard/>
+                </div>
+            </section>
         </>
     )
 }

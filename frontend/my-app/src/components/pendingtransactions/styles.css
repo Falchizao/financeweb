@@ -4,6 +4,10 @@ falchi-container {
     margin: 0 auto;
 }
 
-#movimentations {
+#pending {
     padding: 40px 10px;
+}
+
+section{
+    background-color: #005789;
 }

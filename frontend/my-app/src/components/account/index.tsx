@@ -1,11 +1,14 @@
-import AddButton from "../addbutton"
+import AccountCard from "../accountCard"
+import './styles.css'
 
 function AccountPage(){
     return(
         <>
-            <h1>Account Page</h1>
-            <h1>Add your Account</h1>
-            <AddButton/ >
+            <section id="accounts">
+                <div className="falchi-container">
+                    <AccountCard/>
+                </div>
+            </section>
         </>
     )
 }
