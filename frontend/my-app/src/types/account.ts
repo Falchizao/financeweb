@@ -1,7 +1,7 @@
-import { user } from './user';
+import { User } from './user';
 
-export type account = {
-    user: user;
+export type Account = {
+    user: User;
     code: string;
     bank_branch: string;
     bank: string;

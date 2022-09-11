@@ -1,13 +1,13 @@
-import { category } from './category';
-import { account } from './account';
+import { Category } from './category';
+import { Account } from './account';
 
-export type movimentation = {
-    account: account;
+export type Movimentation = {
+    account: Account;
     value: number;
     paidValue: number;
     due_date: string;
     paymentDate: string;
-    category: category;
+    category: Category;
     description: string;
     transactionType: number;
 }
