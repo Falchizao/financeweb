@@ -8,7 +8,9 @@ import br.edu.utfpr.pb.pw25s.server.service.MovimentationCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
@@ -62,4 +64,18 @@ public class MovimentationController extends IController<MovimentationResponse, 
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.OK);
     }
+
+    @GetMapping("/pending")
+    public ResponseEntity<List<MovimentationResponse>> findPendingTransactionsByDate(
+            @RequestParam(value = "minDate", defaultValue = "") String min,
+            @RequestParam(value = "maxDate", defaultValue = "") String max){
+
+        List<MovimentationDTO> movimentationDTOS = movimentationCRUDService.findPendingTransactionByDate(min, max);
+
+        return new ResponseEntity<>(movimentationDTOS.stream()
+                .map(movimentationDTO -> modelMapper.map(movimentationDTO, MovimentationResponse.class))
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+
 }

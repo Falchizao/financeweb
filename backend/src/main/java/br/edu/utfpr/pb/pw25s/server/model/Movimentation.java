@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity(name = "tb_movimentation")
 public class Movimentation extends IModel {
@@ -28,7 +28,7 @@ public class Movimentation extends IModel {
     @NotNull
     @Getter
     @Setter
-    private Date due_date;
+    private LocalDate due_date;
 
     @Getter
     @Setter
@@ -36,7 +36,7 @@ public class Movimentation extends IModel {
 
     @Getter
     @Setter
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @NotNull
     @Getter

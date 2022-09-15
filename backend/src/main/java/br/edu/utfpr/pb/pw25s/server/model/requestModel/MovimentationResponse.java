@@ -6,6 +6,7 @@ import br.edu.utfpr.pb.pw25s.server.model.Category;
 import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MovimentationResponse {
@@ -24,7 +25,7 @@ public class MovimentationResponse {
 
     @Getter
     @Setter
-    private Date due_date;
+    private LocalDate due_date;
 
     @Getter
     @Setter
@@ -32,7 +33,7 @@ public class MovimentationResponse {
 
     @Getter
     @Setter
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @Getter
     @Setter
