@@ -23,7 +23,8 @@ function TransactionsCard(){
         <div className="component-card">
             <h2 className="title">All Transactions</h2>
             <div className="d-flex text-white">
-            <AddButton/> <h4>  Add a new Movimentation</h4> 
+                <div className="me-3"><h4>Add a new Movimentation</h4></div>
+                <div><AddButton /></div>
             </div>
             <div>
                 <table className="card-table">

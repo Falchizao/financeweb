@@ -1,0 +1,15 @@
+.falchi-search-btn {
+    height: 45px;
+    width: 45px;
+    background: rgba(45, 251, 138, 0.1);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.falchi-search-btn img {
+    width: 30px;
+}

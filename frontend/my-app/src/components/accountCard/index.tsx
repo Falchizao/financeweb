@@ -23,7 +23,8 @@ function AccountCard() {
         <div className="component-card">
             <h2 className="title">Your Accounts</h2>
             <div className="d-flex text-white">
-                <AddButton /> <h4>  Add a new Account</h4>
+                <div className="me-3"><h4>Add a new Account</h4></div>
+                <div><AddButton /></div>
             </div>
             <div>
                 <table className="card-table">
@@ -42,7 +43,7 @@ function AccountCard() {
                         {accounts.map(account => {
                             return (
                                 <tr key={account.id}>
-                                    <td>{account.user.displayname}</td>
+                                    <td>{account.user.displayName}</td>
                                     <td>{account.code}</td>
                                     <td>{account.bank_branch}</td>
                                     <td>{account.bank}</td>
