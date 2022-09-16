@@ -8,6 +8,8 @@ import br.edu.utfpr.pb.pw25s.server.service.CategoryCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -36,28 +38,28 @@ public class CategoryController extends IController <CategoryResponse, ResponseE
     }
 
     @Override
-    public ResponseEntity<Optional<CategoryResponse>> getById(Long id) {
+    public ResponseEntity<Optional<CategoryResponse>> getById(@PathVariable Long id) {
         Optional<CategoryDTO> dto = categoryService.getById(id);
 
         return new ResponseEntity<>(Optional.of(modelMapper.map(dto, CategoryResponse.class)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<CategoryResponse> add(CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryResponse> add(@RequestBody CategoryRequest categoryRequest) {
         CategoryDTO dto = categoryService.add(modelMapper.map(categoryRequest, CategoryDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, CategoryResponse.class), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         categoryService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<CategoryResponse> update(CategoryRequest categoryRequest, Long id) {
+    public ResponseEntity<CategoryResponse> update(@RequestBody CategoryRequest categoryRequest, @PathVariable Long id) {
         CategoryDTO dto = categoryService.update(modelMapper.map(categoryRequest, CategoryDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, CategoryResponse.class), HttpStatus.OK);

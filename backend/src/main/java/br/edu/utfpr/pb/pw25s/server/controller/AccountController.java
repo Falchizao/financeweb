@@ -8,6 +8,9 @@ import br.edu.utfpr.pb.pw25s.server.service.AccountCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -37,28 +40,28 @@ public class AccountController extends IController<AccountResponse, ResponseEnti
     }
 
     @Override
-    public ResponseEntity<Optional<AccountResponse>> getById(Long id) {
+    public ResponseEntity<Optional<AccountResponse>> getById(@PathVariable Long id) {
         Optional<AccountDTO> dto = accountCRUDService.getById(id);
 
         return new ResponseEntity<>(Optional.of(modelMapper.map(dto, AccountResponse.class)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<AccountResponse> add(AccountRequest model) {
+    public ResponseEntity<AccountResponse> add(@RequestBody AccountRequest model) {
         AccountDTO dto = accountCRUDService.add(modelMapper.map(model, AccountDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, AccountResponse.class), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         accountCRUDService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<AccountResponse> update(AccountRequest model, Long id) {
+    public ResponseEntity<AccountResponse> update(@RequestBody AccountRequest model, @PathVariable Long id) {
         AccountDTO dto = accountCRUDService.update(modelMapper.map(model, AccountDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, AccountResponse.class), HttpStatus.OK);

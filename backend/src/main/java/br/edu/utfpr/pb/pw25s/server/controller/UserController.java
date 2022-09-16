@@ -36,30 +36,31 @@ public class UserController extends IController<UserResponse, ResponseEntity<?>,
     }
 
     @Override
-    public ResponseEntity<Optional<UserResponse>> getById(Long id) {
+    public ResponseEntity<Optional<UserResponse>> getById(@PathVariable Long id) {
         Optional<UserDTO> dto = userCRUDService.getById(id);
 
         return new ResponseEntity<>(Optional.of(modelMapper.map(dto, UserResponse.class)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<UserResponse> add(@Valid UserRequest userRequest) {
+    public ResponseEntity<UserResponse> add(@RequestBody @Valid UserRequest userRequest) {
         UserDTO dto = userCRUDService.add(modelMapper.map(userRequest, UserDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, UserResponse.class), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         userCRUDService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<UserResponse> update(@Valid UserRequest userRequest, Long id) {
+    public ResponseEntity<UserResponse> update(@RequestBody @Valid UserRequest userRequest, @PathVariable Long id) {
         UserDTO dto = userCRUDService.update(modelMapper.map(userRequest, UserDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, UserResponse.class), HttpStatus.OK);
     }
+
 }

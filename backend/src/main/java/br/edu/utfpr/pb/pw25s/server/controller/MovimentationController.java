@@ -8,10 +8,8 @@ import br.edu.utfpr.pb.pw25s.server.service.MovimentationCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,28 +36,28 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @Override
-    public ResponseEntity<Optional<MovimentationResponse>> getById(Long id) {
+    public ResponseEntity<Optional<MovimentationResponse>> getById(@PathVariable Long id) {
         Optional<MovimentationDTO> dto = movimentationCRUDService.getById(id);
 
         return new ResponseEntity<>(Optional.of(modelMapper.map(dto, MovimentationResponse.class)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<MovimentationResponse> add(MovimentationRequest model) {
+    public ResponseEntity<MovimentationResponse> add(@RequestBody MovimentationRequest model) {
         MovimentationDTO dto = movimentationCRUDService.add(modelMapper.map(model, MovimentationDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         movimentationCRUDService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override
-    public ResponseEntity<MovimentationResponse> update(MovimentationRequest model, Long id) {
+    public ResponseEntity<MovimentationResponse> update(@RequestBody MovimentationRequest model, @PathVariable Long id) {
         MovimentationDTO dto = movimentationCRUDService.update(modelMapper.map(model, MovimentationDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.OK);

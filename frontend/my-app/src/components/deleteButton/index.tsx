@@ -13,7 +13,7 @@ function handleClick(deletionID : number, url: string){
     let urlDel = BASE_URL.concat(url);
     axios.delete(`${urlDel}/${deletionID}`)
         .then(response => {
-            toast.info("Delete with success");
+            toast.info("Deleted with success");
         });
 }
 

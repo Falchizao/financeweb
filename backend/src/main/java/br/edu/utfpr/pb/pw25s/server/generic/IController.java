@@ -13,11 +13,11 @@ public abstract class IController <A, B, C>{
     @GetMapping
     public abstract ResponseEntity<List<A>> getAll();
 
-    @GetMapping("/{id}")
+    @GetMapping("/id")
     public abstract ResponseEntity<Optional<A>> getById(@PathVariable Long id);
 
     @PostMapping("/registrar")
-    public abstract ResponseEntity<A> add(@RequestBody @Valid C model);
+    public abstract ResponseEntity<A> add(@RequestBody C model);
 
     @DeleteMapping("/{id}")
     public abstract B delete(@PathVariable Long id);
