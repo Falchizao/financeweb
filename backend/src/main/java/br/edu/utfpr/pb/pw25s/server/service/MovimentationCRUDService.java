@@ -8,10 +8,7 @@ import br.edu.utfpr.pb.pw25s.server.repository.MovimentationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,7 +71,7 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
     }
 
     public List<MovimentationDTO>findPendingTransactionByDate(String min, String max){
-        log.info("Fetching pending transaction by date constraints...");
+        log.info("Fetching pending transaction between required dates...");
 
         return movimentationRepository.findPending(LocalDate.parse(min), LocalDate.parse(max))
                 .stream().map(pending -> modelMapper.map(pending, MovimentationDTO.class)).collect(Collectors.toList());

@@ -3,7 +3,6 @@ package br.edu.utfpr.pb.pw25s.server.repository;
 import br.edu.utfpr.pb.pw25s.server.generic.IRepository;
 import br.edu.utfpr.pb.pw25s.server.model.Movimentation;
 import org.springframework.data.jpa.repository.Query;
-
 import java.time.LocalDate;
 import java.util.List;
 

@@ -1,14 +1,35 @@
 package br.edu.utfpr.pb.pw25s.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
+@Slf4j
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
+		bundle.setBasename("classpath:messages");
+		bundle.setDefaultEncoding("UTF-8");
+		bundle.setCacheSeconds(1);
+		return bundle;
+	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void startAndGreetings() {
+		log.info("Dá aquela notinha massa pegorini, tenho que me formar KKKKK");
 	}
 
 }

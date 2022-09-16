@@ -14,6 +14,6 @@ INSERT INTO tb_account(bank, bank_branch, code, type, user_id) VALUES ('Caixa Ec
 INSERT INTO tb_account(bank, bank_branch, code, type, user_id) VALUES ('Santander', '31021' , '196' , 2, 3);
 INSERT INTO tb_account(bank, bank_branch, code, type, user_id) VALUES ('Bradesco', '23054' , '553' , 1, 4);
 
-INSERT INTO tb_movimentation(description, due_date, paid_value, payment_date, type, value, account_id, category_id) VALUES ('Please God', '2022-07-01 00:00:00' , 0 , '2022-08-01 00:00:00', 1, 300, 1, 2);
-INSERT INTO tb_movimentation(description, due_date, paid_value, payment_date, type, value, account_id, category_id) VALUES ('Ave Maria', '2022-07-01 00:00:00' , 0 , '2022-09-01 00:00:00', 1, 400, 2, 1);
+INSERT INTO tb_movimentation(description, due_date, paid_value, payment_date, type, value, account_id, category_id) VALUES ('Please God', '2022-01-01 00:00:00' , 0 , '2022-08-01 00:00:00', 1, 300, 1, 2);
+INSERT INTO tb_movimentation(description, due_date, paid_value, payment_date, type, value, account_id, category_id) VALUES ('Ave Maria', '2022-05-01 00:00:00' , 0 , '2022-09-01 00:00:00', 1, 400, 2, 1);
 INSERT INTO tb_movimentation(description, due_date, paid_value, payment_date, type, value, account_id, category_id) VALUES ('Paguei', '2022-08-01 00:00:00', 500 , '2022-10-01 00:00:00', 1, 500, 3, 3);

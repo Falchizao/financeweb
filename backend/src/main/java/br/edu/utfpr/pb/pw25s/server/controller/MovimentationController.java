@@ -66,16 +66,11 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @GetMapping("/pending")
-    public ResponseEntity<List<MovimentationResponse>> findPendingTransactionsByDate(
-            @RequestParam(value = "minDate", defaultValue = "") String min,
-            @RequestParam(value = "maxDate", defaultValue = "") String max){
+    public ResponseEntity<List<MovimentationResponse>> findPendingTransactionsByDate(@RequestParam(value = "minDate", defaultValue = "") String min, @RequestParam(value = "maxDate", defaultValue = "") String max){
+        List<MovimentationDTO> movDTO = movimentationCRUDService.findPendingTransactionByDate(min, max);
 
-        List<MovimentationDTO> movimentationDTOS = movimentationCRUDService.findPendingTransactionByDate(min, max);
-
-        return new ResponseEntity<>(movimentationDTOS.stream()
-                .map(movimentationDTO -> modelMapper.map(movimentationDTO, MovimentationResponse.class))
+        return new ResponseEntity<>(movDTO.stream()
+                .map(dto -> modelMapper.map(dto, MovimentationResponse.class))
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
-
-
 }
