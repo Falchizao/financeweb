@@ -9,10 +9,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Slf4j
 @EnableSwagger2
+@EnableTransactionManagement
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ServerApplication {
 
