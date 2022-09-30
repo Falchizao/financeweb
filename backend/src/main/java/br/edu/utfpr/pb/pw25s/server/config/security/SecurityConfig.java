@@ -3,7 +3,9 @@ package br.edu.utfpr.pb.pw25s.server.config.security;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,28 +30,30 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
     @SneakyThrows
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)  {
-        http.cors().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/api/users/login").permitAll()
-                .antMatchers("/api/users").permitAll()
-                .antMatchers("/api/account").permitAll()
-                .antMatchers( "/api/movimentation").permitAll()
-                .antMatchers("/api/category").permitAll()
-                .antMatchers( "/api/users/**").permitAll()
-                .antMatchers("/api/account/**").permitAll()
-                .antMatchers("/api/movimentation/**").permitAll()
-                .antMatchers("/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuarios").authenticated().anyRequest().authenticated().and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
-
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests().antMatchers("/api/authorization").permitAll()
+                .anyRequest().authenticated();
+        http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
