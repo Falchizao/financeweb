@@ -60,10 +60,8 @@ function TransactionsCard(){
                             )
                         })}
                     </tbody>
-
                 </table>
             </div>
-
         </div>
     )
 }

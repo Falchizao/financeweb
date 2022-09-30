@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 import { useEffect, useState } from "react";
 import { Category } from "../../types/category";
 import { BASE_URL } from "../../utils/requests";
