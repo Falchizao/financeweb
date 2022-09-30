@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @Override
-    public ResponseEntity<MovimentationResponse> add(@RequestBody MovimentationRequest model) {
+    public ResponseEntity<MovimentationResponse> add(@Valid  @RequestBody MovimentationRequest model) {
         MovimentationDTO dto = movimentationCRUDService.add(modelMapper.map(model, MovimentationDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.CREATED);
@@ -57,7 +57,7 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @Override
-    public ResponseEntity<MovimentationResponse> update(@RequestBody MovimentationRequest model, @PathVariable Long id) {
+    public ResponseEntity<MovimentationResponse> update(@Valid @RequestBody MovimentationRequest model, @PathVariable Long id) {
         MovimentationDTO dto = movimentationCRUDService.update(modelMapper.map(model, MovimentationDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.OK);

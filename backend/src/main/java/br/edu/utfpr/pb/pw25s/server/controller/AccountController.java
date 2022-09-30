@@ -8,11 +8,12 @@ import br.edu.utfpr.pb.pw25s.server.service.AccountCRUDService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ public class AccountController extends IController<AccountResponse, ResponseEnti
     }
 
     @Override
-    public ResponseEntity<AccountResponse> add(@RequestBody AccountRequest model) {
+    public ResponseEntity<AccountResponse> add(@Valid @RequestBody AccountRequest model) {
         AccountDTO dto = accountCRUDService.add(modelMapper.map(model, AccountDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, AccountResponse.class), HttpStatus.CREATED);
@@ -61,7 +62,7 @@ public class AccountController extends IController<AccountResponse, ResponseEnti
     }
 
     @Override
-    public ResponseEntity<AccountResponse> update(@RequestBody AccountRequest model, @PathVariable Long id) {
+    public ResponseEntity<AccountResponse> update(@Valid @RequestBody AccountRequest model, @PathVariable Long id) {
         AccountDTO dto = accountCRUDService.update(modelMapper.map(model, AccountDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, AccountResponse.class), HttpStatus.OK);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class CategoryController extends IController <CategoryResponse, ResponseE
     }
 
     @Override
-    public ResponseEntity<CategoryResponse> add(@RequestBody CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryResponse> add(@Valid @RequestBody CategoryRequest categoryRequest) {
         CategoryDTO dto = categoryService.add(modelMapper.map(categoryRequest, CategoryDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, CategoryResponse.class), HttpStatus.CREATED);
@@ -59,7 +60,7 @@ public class CategoryController extends IController <CategoryResponse, ResponseE
     }
 
     @Override
-    public ResponseEntity<CategoryResponse> update(@RequestBody CategoryRequest categoryRequest, @PathVariable Long id) {
+    public ResponseEntity<CategoryResponse> update(@Valid @RequestBody CategoryRequest categoryRequest, @PathVariable Long id) {
         CategoryDTO dto = categoryService.update(modelMapper.map(categoryRequest, CategoryDTO.class), id);
 
         return new ResponseEntity<>(modelMapper.map(dto, CategoryResponse.class), HttpStatus.OK);
