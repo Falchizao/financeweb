@@ -1,7 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server;
 
 import br.edu.utfpr.pb.pw25s.server.model.Category;
-import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class CategoryTest {
 
     @Autowired
     UserRepository userRepository;
-
 
     private Category createValidCategory(){
         Category category = new Category();
