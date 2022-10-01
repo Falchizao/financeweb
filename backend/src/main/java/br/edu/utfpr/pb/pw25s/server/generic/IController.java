@@ -2,8 +2,6 @@ package br.edu.utfpr.pb.pw25s.server.generic;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
