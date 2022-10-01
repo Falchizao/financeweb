@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server.service;
 
+import br.edu.utfpr.pb.pw25s.server.dto.AccountDTO;
 import br.edu.utfpr.pb.pw25s.server.dto.MovimentationDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
@@ -19,9 +20,11 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
 
     private final MovimentationRepository movimentationRepository;
     private final ModelMapper modelMapper;
+    private final BalanceService balanceService;
 
-    public MovimentationCRUDService(MovimentationRepository movimentationRepository){
+    public MovimentationCRUDService(MovimentationRepository movimentationRepository, BalanceService balanceService){
         this.movimentationRepository = movimentationRepository;
+        this.balanceService = balanceService;
         this.modelMapper = new ModelMapper();
     }
     @Override
@@ -46,6 +49,9 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
     public MovimentationDTO add(MovimentationDTO model) {
         log.info("Adding new transaction...");
         Movimentation movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
+
+        log.info("Finishing transaction");
+        balanceService.attBalance(model.getValue(), modelMapper.map(model.getAccount(), AccountDTO.class));
 
         return modelMapper.map(movimentation, MovimentationDTO.class);
     }

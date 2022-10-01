@@ -5,6 +5,8 @@ import br.edu.utfpr.pb.pw25s.server.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 public class AccountDTO {
 
     @Setter
@@ -18,6 +20,10 @@ public class AccountDTO {
     @Getter
     @Setter
     private Long code;
+
+    @Getter
+    @Setter
+    private BigDecimal balance;
 
     @Getter
     @Setter

@@ -33,11 +33,12 @@ public class SecurityConfig {
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/api/authorization"
+            "/api/authorization/**",
+            "/api/test/**"
     };
 
     public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                          JwtRequestFilter jwtRequestFilter, UserDetailsService userDetailsService) {
+                        JwtRequestFilter jwtRequestFilter, UserDetailsService userDetailsService) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtRequestFilter = jwtRequestFilter;
         this.userDetailsService = userDetailsService;

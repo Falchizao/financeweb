@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 public class AccountRequest {
 
@@ -35,4 +36,8 @@ public class AccountRequest {
     @Getter
     @Setter
     private AccountType type;
+
+    @Getter
+    @Setter
+    private BigDecimal balance;
 }

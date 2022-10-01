@@ -51,6 +51,7 @@ public class AuthController {
     public ResponseEntity<?> registerNewUser(@Valid @RequestBody UserRequest newUser) {
 
         UserDTO dto = modelMapper.map(newUser, UserDTO.class);
+        dto.setPassword(encoder.encode(dto.getPassword()));
 
         if(userCRUDService.add(dto) != null){
             return ResponseEntity.ok("Registrado com sucesso, agora você pode realizar o login!");

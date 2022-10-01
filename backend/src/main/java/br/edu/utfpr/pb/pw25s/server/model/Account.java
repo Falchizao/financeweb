@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Entity(name = "tb_account")
 public class Account extends IModel {
@@ -29,6 +30,10 @@ public class Account extends IModel {
     @Setter
     @Size(min = 4, max = 255)
     private String bank;
+
+    @Getter
+    @Setter
+    private BigDecimal balance;
 
     @Getter
     @Setter

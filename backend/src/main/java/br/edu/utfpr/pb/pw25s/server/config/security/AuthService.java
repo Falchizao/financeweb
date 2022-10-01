@@ -22,6 +22,6 @@ public class AuthService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Usuário não encontrado!");
         }
-        return (UserDetails) user;
+        return UserDetailsImpl.build(user);
     }
 }

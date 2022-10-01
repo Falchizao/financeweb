@@ -5,6 +5,8 @@ import br.edu.utfpr.pb.pw25s.server.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 public class AccountResponse {
 
     @Setter
@@ -30,4 +32,8 @@ public class AccountResponse {
     @Getter
     @Setter
     private AccountType type;
+
+    @Getter
+    @Setter
+    private BigDecimal balance;
 }
