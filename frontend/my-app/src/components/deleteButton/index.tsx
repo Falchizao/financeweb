@@ -24,7 +24,6 @@ function handleClick(deletionID: number, deletionSector: number) {
         }
         case 1: {
             DeleteCategory(deletionID).then(async response => {
-                console.log(response);
                 toast.info("Deleted with success");
                 await sleep();
                 window.location.reload();
@@ -35,7 +34,6 @@ function handleClick(deletionID: number, deletionSector: number) {
         }
         case 2: {
             DeleteMovimentation(deletionID).then(async response => {
-                console.log(response);
                 toast.info("Deleted with success");
                 await sleep();
                 window.location.reload();

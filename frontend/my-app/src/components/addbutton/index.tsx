@@ -9,7 +9,6 @@ function AddButton({ addSector }: Props) {
     const navigate = useNavigate();
 
     function handleClick(addSector: number) {
-        console.log("entrouuuu", addSector);
 
         switch (addSector) {
             case 0: { //Account

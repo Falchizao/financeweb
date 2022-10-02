@@ -6,10 +6,7 @@ type Props = {
 }
 
 function handleClick(editID : number){
-    // axios.put(`${BASE_URL}/api/${editID}`)
-    //     .then(response => {
-    //         console.log("gogogo edit saporra")
-    //     });
+
 
 }
 
