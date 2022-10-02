@@ -1,23 +1,26 @@
-import axios from "axios";
-import Swal from 'sweetalert2'
 import { useEffect, useState } from "react";
 import { Category } from "../../types/category";
-import { BASE_URL } from "../../utils/requests";
 import AddButton from "../addbutton"
 import DeleteButton from "../deleteButton"
 import EditButton from "../editbutton"
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { GetCategories } from '../../services/authservice';
 
 function CategoryCard() {
-
+    let navigate: NavigateFunction = useNavigate();
     const [categories, setCategories] = useState<Category[]>([]);
     const categoriesUrl = '/api/category';
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/api/category`)
-            .then(response => {
-                setCategories(response.data);
-            });
-    }, []);
+        const userToken = localStorage.getItem('@FinanceWeb::user'); 
+        if (!userToken) {
+            navigate("/");
+            window.location.reload();
+        }
+        GetCategories().then(response => {
+            setCategories(response.data);
+        });
+    }, [navigate]);
 
     return (
         <div className="component-card">

@@ -1,16 +1,15 @@
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { Movimentation } from "../../types/movimentation";
-import { BASE_URL } from "../../utils/requests";
 import DeleteButton from "../deleteButton"
 import EditButton from "../editbutton"
-import { toast } from 'react-toastify'
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { PendingMovimentations } from '../../services/authservice';
 import './styles.css'
 
 function PendingTransactionsCard() {
-
+    let navigate: NavigateFunction = useNavigate();
     const max = new Date();
     const min = new Date(new Date().setDate(new Date().getDate() - 365)); //For datePicker
     const transactionUrl = '/api/movimentation';
@@ -21,17 +20,19 @@ function PendingTransactionsCard() {
     const [pendingMovimentations, setMov] = useState<Movimentation[]>([]);
 
     useEffect(() => {
+        const userToken = localStorage.getItem('@FinanceWeb::user'); 
+        if (!userToken) {
+            navigate("/");
+            window.location.reload();
+        }
+
         const dmin = minDate.toISOString().slice(0, 10);
         const dmax = maxDate.toISOString().slice(0, 10);
     
-        let urlfind = BASE_URL.concat(transactionUrl);
-        axios.get(`${urlfind}/pending?minDate=${dmin}&maxDate=${dmax}`)
-            .then(response => {
-                console.log(response);
-                setMov(response.data);
-                toast.info("Fetching succeded");
-            });
-    }, [minDate, maxDate]);
+        PendingMovimentations(dmin, dmax).then(response => {
+            setMov(response.data);
+        });
+    }, [minDate, maxDate, navigate]);
 
     return (
         <div className="component-card">

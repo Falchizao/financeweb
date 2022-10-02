@@ -1,23 +1,29 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 import AddButton from "../addbutton"
 import DeleteButton from "../deleteButton"
-import { BASE_URL } from '../../utils/requests';
 import EditButton from "../editbutton"
 import { Account } from '../../types/account'
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { GetAllAccounts } from '../../services/authservice';
+
 
 function AccountCard() {
-
+    let navigate: NavigateFunction = useNavigate();
     const [accounts, setAccounts] = useState<Account[]>([]);
 
     const accountsUrl = '/api/account';
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/api/account`)
-            .then(response => {
-                setAccounts(response.data);
-            });
-    }, []);
+        const userToken = localStorage.getItem('@FinanceWeb::user'); 
+        if (!userToken) {
+            navigate("/");
+            window.location.reload();
+        }
+        GetAllAccounts().then(response => {
+            setAccounts(response.data);
+        });
+
+    }, [navigate]);
 
     return (
         <div className="component-card">

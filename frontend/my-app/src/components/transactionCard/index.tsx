@@ -1,22 +1,26 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Movimentation } from "../../types/movimentation";
-import { BASE_URL } from "../../utils/requests";
 import AddButton from "../addbutton"
 import DeleteButton from "../deleteButton"
 import EditButton from "../editbutton"
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { GetMovimentations } from '../../services/authservice';
 
 function TransactionsCard(){
-
+    let navigate: NavigateFunction = useNavigate();
     const [movimentations, setMov] = useState<Movimentation[]>([]);
     const transactionUrl = '/api/movimentation';
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/api/movimentation`)
-            .then(response => {
-                setMov(response.data);
-            });
-    }, []);
+        const userToken = localStorage.getItem('@FinanceWeb::user'); 
+        if (!userToken) {
+            navigate("/");
+            window.location.reload();
+        }
+        GetMovimentations().then(response => {
+            setMov(response.data);
+        });
+    }, [navigate]);
 
 
     return (
