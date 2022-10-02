@@ -1,0 +1,15 @@
+.falchi-logout-btn {
+    height: 45px;
+    width: 45px;
+    background: rgba(255, 71, 71, 0.1);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.falchi-logout-btn img {
+    width: 30px;
+}

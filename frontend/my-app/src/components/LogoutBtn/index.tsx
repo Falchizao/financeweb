@@ -1,11 +1,18 @@
-import { useNavigate } from 'react-router-dom';
+import logoutButton from '../../assets/img/logout.svg'
+import {Logout} from '../../services/authservice';
+import './styles.css'
 
 
-const history = useNavigate();
-
-function Logout() {
-    localStorage.removeItem("@FinanceWeb::user");
-    history("/login");
+function handleClick() {
+    Logout();
 }
 
-export default Logout
+function LogoutBtn(){
+    return(
+        <div className="falchi-logout-btn" onClick={() => handleClick()}>
+            <img src={logoutButton} alt="logout" />    
+        </div>
+    )
+}
+
+export default LogoutBtn
