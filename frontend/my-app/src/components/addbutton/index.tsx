@@ -1,21 +1,38 @@
 import addbtn from '../../assets/img/add-icon.svg'
-import AccountModal from '../AccountModal'
 import './styles.css'
-
-function handleClick(){
-    // axios.put(`${BASE_URL}/api/${editID}`)
-    //     .then(response => {
-    //         console.log("gogogo edit saporra")
-    //     });
-    return(
-        <AccountModal/>
-    )
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+type Props = {
+    addSector: number
 }
 
-function AddButton(){
-    return(
-        <div className="falchi-add-btn" onClick={() => handleClick()}>
-            <img src={addbtn} alt="Add" />    
+function AddButton({ addSector }: Props) {
+    const navigate = useNavigate();
+
+    function handleClick(addSector: number) {
+        console.log("entrouuuu", addSector);
+
+        switch (addSector) {
+            case 0: { //Account
+                navigate("/Register/Account");
+                window.location.reload();
+                break;
+            }
+            case 1: { //Category
+                navigate("/Register/Category");
+                window.location.reload();
+                break;
+            }
+            case 2: { //Movimentation
+                navigate("/Register/Movimentation");
+                window.location.reload();
+                break;
+            }
+        }
+    }
+
+    return (
+        <div className="falchi-add-btn" onClick={() => handleClick(addSector)}>
+            <img src={addbtn} alt="Add" />
         </div>
     )
 }
