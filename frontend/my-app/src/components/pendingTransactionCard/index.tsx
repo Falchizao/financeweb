@@ -64,8 +64,7 @@ function PendingTransactionsCard() {
                             <th>Due Date</th>
                             <th>Category</th>
                             <th>Description</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            {/* <th>Edit</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -77,12 +76,9 @@ function PendingTransactionsCard() {
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
                                     <td>{mov.description}</td>
-                                    <td>
+                                    {/* <td>
                                         <EditButton id={mov.id}/>
-                                    </td>
-                                    <td>
-                                        <DeleteButton id={mov.id} url={transactionUrl} />
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )
                         })}

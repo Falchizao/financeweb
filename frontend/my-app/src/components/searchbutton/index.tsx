@@ -17,8 +17,6 @@ function handleClick(url: string, minDate: Date, maxDate: Date){
     let urlfind = BASE_URL.concat(url);
     axios.get(`${urlfind}/pending?minDate=${dmin}&maxDate=${dmax}`)
         .then(response => {
-            console.log(response);
-            toast.info("Fetching succeded");
         });
 }
 
