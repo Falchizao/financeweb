@@ -1,7 +1,7 @@
-INSERT INTO tb_user(username,display_Name,password) VALUES ('Marcelo Falchi', 'Falchi', '12345');
-INSERT INTO tb_user(username,display_Name,password) VALUES ('Vini Pegorini', 'Pegorini', '1234');
-INSERT INTO tb_user(username,display_Name,password) VALUES ('Ricardo Braga', 'Braga','123456');
-INSERT INTO tb_user(username,display_Name,password) VALUES ('Ricardo Solares', 'Solares','1234567');
+INSERT INTO tb_user(username,display_Name,password) VALUES ('Falchi', 'Falchi', '12345');
+INSERT INTO tb_user(username,display_Name,password) VALUES ('Pegorini', 'Pegorini', '1234');
+INSERT INTO tb_user(username,display_Name,password) VALUES ('Ricardo', 'Braga','123456');
+INSERT INTO tb_user(username,display_Name,password) VALUES ('Solares', 'Solares','1234567');
 
 INSERT INTO tb_category(name) VALUES ('Eletricidade');
 INSERT INTO tb_category(name) VALUES ('Mercado');

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import AddButton from "../addbutton"
 import DeleteButton from "../deleteButton"
-import EditButton from "../editbutton"
 import { Account } from '../../types/account'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { GetAllAccounts } from '../../services/authservice';
@@ -10,8 +9,6 @@ import { GetAllAccounts } from '../../services/authservice';
 function AccountCard() {
     let navigate: NavigateFunction = useNavigate();
     const [accounts, setAccounts] = useState<Account[]>([]);
-
-    const accountsUrl = '/api/account';
 
     useEffect(() => {
         const userToken = localStorage.getItem('@FinanceWeb::user'); 
@@ -30,7 +27,7 @@ function AccountCard() {
             <h2 className="title">Your Accounts</h2>
             <div className="d-flex text-white">
                 <div className="me-3"><h4>Add a new Account</h4></div>
-                <div><AddButton /></div>
+                <div><AddButton addSector={0} /></div>
             </div>
             <div>
                 <table className="card-table">
@@ -58,7 +55,7 @@ function AccountCard() {
                                         <EditButton id={account.id}/>
                                     </td> */}
                                     <td>
-                                        <DeleteButton id={account.id} deletionSector={1} />
+                                        <DeleteButton id={account.id} deletionSector={0} />
                                     </td>
                                 </tr>
                             )

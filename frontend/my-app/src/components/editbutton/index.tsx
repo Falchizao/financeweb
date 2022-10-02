@@ -1,8 +1,4 @@
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import editbtn from '../../assets/img/icon-edit.svg'
-import { BASE_URL } from '../../utils/requests';
-import AccountModal from '../AccountModal';
 import './styles.css'
 
 type Props = {
@@ -14,9 +10,7 @@ function handleClick(editID : number){
     //     .then(response => {
     //         console.log("gogogo edit saporra")
     //     });
-    return(
-        <AccountModal/>
-    )
+
 }
 
 function EditButton( {id} : Props){

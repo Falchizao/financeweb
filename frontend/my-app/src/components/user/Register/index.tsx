@@ -21,19 +21,19 @@ const Register: React.FC = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().test("len", "Nome de usuário deve conter entre 3 e 20 caracteres.",
+        username: Yup.string().test("len", "Username must contains 3-20 caracteres.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
                 val.toString().length <= 20
-        ).required("Campo obrigatório!"),
-        password: Yup.string().test("len", "A senha deve possuir entre 3 e 20 caracteres.",
+        ).required("Required field!"),
+        password: Yup.string().test("len", "Password must contains 3-20 caracteres.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
                 val.toString().length <= 20
         )
-            .required("Campo obrigatório!"),
+            .required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
@@ -66,7 +66,7 @@ const Register: React.FC = () => {
                         {!successful && (
                             <div>
                                 <div className="form-group">
-                                    <label htmlFor="username"> Nome de usuário </label>
+                                    <label htmlFor="username"> Username </label>
                                     <Field name="username" type="text" className="form-control" />
                                     <ErrorMessage
                                         name="username"
@@ -75,7 +75,7 @@ const Register: React.FC = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="displayName"> Nome de display </label>
+                                    <label htmlFor="displayName"> Display Name </label>
                                     <Field name="displayName" type="text" className="form-control" />
                                     <ErrorMessage
                                         name="displayName"
@@ -84,7 +84,7 @@ const Register: React.FC = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="password"> Senha </label>
+                                    <label htmlFor="password"> Password </label>
                                     <Field
                                         name="password"
                                         type="password"
@@ -97,7 +97,7 @@ const Register: React.FC = () => {
                                     />
                                 </div>
                                 <div className="form-group m-1">
-                                    <button type="submit" className="btn btn-primary btn-block">Registrar</button>
+                                    <button type="submit" className="btn btn-primary btn-block">Register</button>
                                 </div>
                             </div>
                         )}

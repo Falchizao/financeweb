@@ -7,11 +7,11 @@ export async function UserAuthenticate(authForm: any) {
     return await customAxios.post(`${route}/authorization/register`, authForm);
 }
 export async function UserLogin(loginCredentials: any) {
-    console.log(loginCredentials, "< - credentials")
     return await customAxios.post(`${route}/authorization/login`, loginCredentials)
         .then((response) => {
             if (response.data) {
                 localStorage.setItem('@FinanceWeb::user', JSON.stringify(response.data));
+                localStorage.setItem('@FinanceWeb::nameuser', JSON.stringify(loginCredentials.username));
             }
         });
 }
@@ -60,6 +60,9 @@ export async function GetMovimentation(id: any) {
 export async function AddMovimentations() {
     return await customAxios.delete(`${route}/movimentation/registrar`, { headers: userTokenAuth() });
 }
+export async function DeleteMovimentation(id: any){
+    return await customAxios.delete(`${route}/movimentation/${id}`, { headers: userTokenAuth()});
+}
 export async function PendingMovimentations(dmin: string, dmax: string){
     return await customAxios.get(`${route}/movimentation/pending?minDate=${dmin}&maxDate=${dmax}`, { headers: userTokenAuth()});
 }
@@ -67,6 +70,7 @@ export async function PendingMovimentations(dmin: string, dmax: string){
 //Logout
 export const Logout = () => {
     localStorage.removeItem("@FinanceWeb::user");
+    localStorage.removeItem("@FinanceWeb::nameuser");
     window.location.reload();
 };
 

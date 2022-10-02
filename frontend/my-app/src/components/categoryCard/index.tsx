@@ -25,7 +25,7 @@ function CategoryCard() {
             <h2 className="title">Your Categories</h2>
             <div className="d-flex text-white">
                 <div className="me-3"><h4>Add a new Category</h4></div>
-                <div><AddButton /></div>
+                <div><AddButton addSector={1} /></div>
             </div>
             <div>
                 <table className="card-table">
@@ -45,7 +45,7 @@ function CategoryCard() {
                                         <EditButton id={categorie.id}/>
                                     </td> */}
                                     <td>
-                                        <DeleteButton id={categorie.id} deletionSector={0} />
+                                        <DeleteButton id={categorie.id} deletionSector={1} />
                                     </td>
                                 </tr>
                             )

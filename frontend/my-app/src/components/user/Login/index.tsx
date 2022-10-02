@@ -19,8 +19,8 @@ const Login: React.FC<Props> = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().required("Campo obrigatório!"),
-        password: Yup.string().required("Campo obrigatório!"),
+        username: Yup.string().required("Required field!"),
+        password: Yup.string().required("Required field!"),
     });
 
     const handleLogin = (formValue: { username: string; password: string }) => {
@@ -30,7 +30,7 @@ const Login: React.FC<Props> = () => {
                 window.location.reload();
             },
             (error) => {
-                toast.info("Credenciais não encontradas!");
+                toast.info("Not found in system!");
             }
         );
     };
@@ -46,7 +46,7 @@ const Login: React.FC<Props> = () => {
                 >
                     <Form>
                         <div className="form-group">
-                            <label htmlFor="username">Nome de usuário</label>
+                            <label htmlFor="username">Username</label>
                             <Field name="username" type="text" className="form-control" />
                             <ErrorMessage
                                 name="username"
@@ -56,7 +56,7 @@ const Login: React.FC<Props> = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password">Senha</label>
+                            <label htmlFor="password">Password</label>
                             <Field name="password" type="password" className="form-control" />
                             <ErrorMessage
                                 name="password"
@@ -65,10 +65,10 @@ const Login: React.FC<Props> = () => {
                             />
                         </div>
                         <div className=" m-1">
-                            <a href="/register"> Não possue cadastro? </a>
+                            <a href="/register"> Not registered? </a>
                             <div className="form-group mt-3">
                                 <button type="submit" className="btn btn-primary btn-block">
-                                    <span>Logar</span>
+                                    <span>Login</span>
                                 </button>
                             </div>
                         </div>

@@ -2,7 +2,6 @@ import logoutButton from '../../assets/img/logout.svg'
 import {Logout} from '../../services/authservice';
 import './styles.css'
 
-
 function handleClick() {
     Logout();
 }

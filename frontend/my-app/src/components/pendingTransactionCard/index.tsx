@@ -3,24 +3,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { Movimentation } from "../../types/movimentation";
 import DeleteButton from "../deleteButton"
-import EditButton from "../editbutton"
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { PendingMovimentations } from '../../services/authservice';
 import './styles.css'
 
 function PendingTransactionsCard() {
+    let result: number = 0;
     let navigate: NavigateFunction = useNavigate();
     const max = new Date();
     const min = new Date(new Date().setDate(new Date().getDate() - 365)); //For datePicker
-    const transactionUrl = '/api/movimentation';
-
     const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(max);
-
     const [pendingMovimentations, setMov] = useState<Movimentation[]>([]);
+    const [totalPending, setPending] = useState(result);
 
     useEffect(() => {
-        const userToken = localStorage.getItem('@FinanceWeb::user'); 
+        const userToken = localStorage.getItem('@FinanceWeb::user');
         if (!userToken) {
             navigate("/");
             window.location.reload();
@@ -28,11 +26,16 @@ function PendingTransactionsCard() {
 
         const dmin = minDate.toISOString().slice(0, 10);
         const dmax = maxDate.toISOString().slice(0, 10);
-    
+
         PendingMovimentations(dmin, dmax).then(response => {
             setMov(response.data);
+            result = pendingMovimentations.reduce((accumulator, obj) => {
+                return accumulator + obj.value;
+            }, 0);
+            setPending(result);
         });
-    }, [minDate, maxDate, navigate]);
+
+    }, [minDate, maxDate, navigate, result]);
 
     return (
         <div className="component-card">
@@ -55,6 +58,7 @@ function PendingTransactionsCard() {
                     />
                 </div>
             </div>
+            <h3 className="title">Total outstanding: R${totalPending}</h3>
             <div>
                 <table className="card-table">
                     <thead>
@@ -64,7 +68,7 @@ function PendingTransactionsCard() {
                             <th>Due Date</th>
                             <th>Category</th>
                             <th>Description</th>
-                            {/* <th>Edit</th> */}
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,9 +80,9 @@ function PendingTransactionsCard() {
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
                                     <td>{mov.description}</td>
-                                    {/* <td>
-                                        <EditButton id={mov.id}/>
-                                    </td> */}
+                                    <td>
+                                        <DeleteButton id={mov.id} deletionSector={2}/>
+                                    </td>
                                 </tr>
                             )
                         })}

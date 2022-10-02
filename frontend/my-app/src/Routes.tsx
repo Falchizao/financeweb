@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/Loginpage';
+import AddCategoryPage from './pages/Add/Category';
+import AddMovimentationPage from './pages/Add/Movimentation';
+import AddAccountPage from './pages/Add/Account';
 
 function WebRoutes() {
     return (
@@ -21,6 +24,12 @@ function WebRoutes() {
                 <Route path="/Account" element={<Account />}>
                 </Route>
                 <Route path="/Movimentation" element={<Movimentation />}>
+                </Route>
+                <Route path="/Register/Account" element={<AddAccountPage />}>
+                </Route>
+                <Route path="/Register/Category" element={<AddCategoryPage />}>
+                </Route>
+                <Route path="/Register/Movimentation" element={<AddMovimentationPage />}>
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -9,7 +9,6 @@ import { GetMovimentations } from '../../services/authservice';
 function TransactionsCard(){
     let navigate: NavigateFunction = useNavigate();
     const [movimentations, setMov] = useState<Movimentation[]>([]);
-    const transactionUrl = '/api/movimentation';
 
     useEffect(() => {
         const userToken = localStorage.getItem('@FinanceWeb::user'); 
@@ -28,7 +27,7 @@ function TransactionsCard(){
             <h2 className="title">All Transactions</h2>
             <div className="d-flex text-white">
                 <div className="me-3"><h4>Add a new Movimentation</h4></div>
-                <div><AddButton /></div>
+                <div><AddButton addSector={2} /></div>
             </div>
             <div>
                 <table className="card-table">
@@ -40,8 +39,8 @@ function TransactionsCard(){
                             <th>Due Date</th>
                             <th>Category</th>
                             <th>Description</th>
-                            {/* <th>Edit</th>
-                            <th>Delete</th> */}
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,12 +53,12 @@ function TransactionsCard(){
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
                                     <td>{mov.description}</td>
-                                    {/* <td>
+                                    <td>
                                         <EditButton id={mov.id}/>
-                                    </td> */}
-                                    {/* <td>
-                                        <DeleteButton id={mov.id} url={transactionUrl} />
-                                    </td> */}
+                                    </td>
+                                    <td>
+                                        <DeleteButton id={mov.id} deletionSector={2} />
+                                    </td>
                                 </tr>
                             )
                         })}

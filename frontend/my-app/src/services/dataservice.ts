@@ -11,3 +11,7 @@ export default function userTokenAuth() {
         return { Authorization: '' }; //Aqui vai dar pau
     }
 }
+
+export const reloadSystem = () => {
+    window.location.reload();
+};
