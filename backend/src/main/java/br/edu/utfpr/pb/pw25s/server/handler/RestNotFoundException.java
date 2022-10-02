@@ -18,4 +18,12 @@ class RestExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ErrorMessage.class)
+    public ResponseEntity<?> handleResourceCustomErrorException(String exception){
+
+        ErrorMessage error = new ErrorMessage(exception); //Personalized Message
+
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
 }

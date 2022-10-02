@@ -2,6 +2,7 @@ package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.CategoryDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
+import br.edu.utfpr.pb.pw25s.server.handler.modelException.ErrorMessage;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
@@ -53,12 +54,11 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
     @Override
     public void delete(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
-
         if(category.isEmpty()){
             throw new ResourceNotFound("Category by id Not found in service!");
         }
-        log.info("Deleting category...");
 
+        log.info("Deleting category...");
         categoryRepository.deleteById(id);
     }
 

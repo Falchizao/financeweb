@@ -41,7 +41,7 @@ function AccountCard() {
                             <th>Bank Branch</th>
                             <th>Bank</th>
                             <th>Type</th>
-                            <th>Edit</th>
+                            {/* <th>Edit</th> */}
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -54,11 +54,11 @@ function AccountCard() {
                                     <td>{account.bank_branch}</td>
                                     <td>{account.bank}</td>
                                     <td>{account.accountType}</td>
-                                    <td>
+                                    {/* <td>
                                         <EditButton id={account.id}/>
-                                    </td>
+                                    </td> */}
                                     <td>
-                                        <DeleteButton id={account.id} url={accountsUrl} />
+                                        <DeleteButton id={account.id} deletionSector={1} />
                                     </td>
                                 </tr>
                             )

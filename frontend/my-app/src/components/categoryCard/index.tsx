@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { Category } from "../../types/category";
 import AddButton from "../addbutton"
 import DeleteButton from "../deleteButton"
-import EditButton from "../editbutton"
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { GetCategories } from '../../services/authservice';
 
 function CategoryCard() {
     let navigate: NavigateFunction = useNavigate();
     const [categories, setCategories] = useState<Category[]>([]);
-    const categoriesUrl = '/api/category';
 
     useEffect(() => {
         const userToken = localStorage.getItem('@FinanceWeb::user'); 
@@ -34,7 +32,7 @@ function CategoryCard() {
                     <thead>
                         <tr>
                             <th>Categories</th>
-                            <th>Edit</th>
+                            {/* <th>Edit</th> */}
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -43,11 +41,11 @@ function CategoryCard() {
                             return (
                                 <tr key={categorie.id}>
                                     <td>{categorie.name}</td>
-                                    <td>
+                                    {/* <td>
                                         <EditButton id={categorie.id}/>
-                                    </td>
+                                    </td> */}
                                     <td>
-                                        <DeleteButton id={categorie.id} url={categoriesUrl} />
+                                        <DeleteButton id={categorie.id} deletionSector={0} />
                                     </td>
                                 </tr>
                             )
