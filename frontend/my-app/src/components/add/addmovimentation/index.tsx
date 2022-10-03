@@ -3,8 +3,8 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify'
-import { User } from "../../../types/user";
-import { UserAuthenticate } from '../../../services/authservice';
+import { AddMovimentationsAxios } from '../../../services/authservice';
+import { getCustomParseMovimentation } from "../../../utils/parser";
 
 const AddMovimentation: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -14,74 +14,70 @@ const AddMovimentation: React.FC = () => {
 
     //Init da instance
     const initialValues: any = {
-        account: 0,
+        code: 0,
+        bank_branch: '',
+        bank: '',
         value: 0,
-        paidValue: 0,
         due_date: '',
+        paidValue: 0,
         paymentDate: '',
-        category: '',
+        name: '',
         description: '',
         transactionType: ''
     };
 
     const validationSchema = Yup.object().shape({
-        account: Yup.string().test("len", "Account must be valid",
+        code: Yup.string().test("len", "Account must be valid",
+            (val: any) =>
+                val &&
+                val.toString().length >= 1 &&
+                val.toString().length <= 20
+        ).required("Required field!"),
+        bank_branch: Yup.string().test("len", "Agency must be valid",
+            (val: any) =>
+                val &&
+                val.toString().length === 5 
+        ).required("Required field!"),
+        bank: Yup.string().test("len", "Bank name must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
                 val.toString().length <= 20
         ).required("Required field!"),
-        value: Yup.string().test("len", "Value must be valid",
+        value: Yup.string().test("len", "Transaction Value must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
-        )
-            .required("Required field!"),
-        paidValue: Yup.string().test("len", "Value must be valid",
+        ).required("Required field!"),
+        paidValue: Yup.string().test("len", "Paid Value must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
-        )
-            .required("Required field!"),
-        due_date: Yup.string().test("len", "Value must be valid",
+        ),
+        name: Yup.string().test("len", "Category Name must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
-        )
-            .required("Required field!"),
-        paymentDate: Yup.string().test("len", "Value must be valid",
-            (val: any) =>
-                val &&
-                val.toString().length >= 1
-        )
-            .required("Required field!"),
-        category: Yup.string().test("len", "Value must be valid",
-            (val: any) =>
-                val &&
-                val.toString().length >= 1
-        )
-            .required("Required field!"),
+        ).required("Required field!"),
         description: Yup.string().test("len", "Value must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
-        )
-            .required("Required field!"),
+        ).required("Required field!"),
         transactionType: Yup.string().test("len", "Value must be valid",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
-        )
-            .required("Required field!"),
+        ).required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
-        UserAuthenticate(formValue).then(async (response) => {
-            toast.info(response.data);
+        AddMovimentationsAxios(getCustomParseMovimentation(formValue)).then(async (response) => {
+            toast.info('Registered with success');
             setSuccessful(true);
 
             await sleep();
-            navigate("/");
+            navigate("/Movimentation");
             window.location.reload();
         },
             (error) => {
@@ -105,10 +101,28 @@ const AddMovimentation: React.FC = () => {
                         {!successful && (
                             <div>
                                 <div className="form-group">
-                                    <label htmlFor="account"> Account </label>
-                                    <Field name="account" type="number" className="form-control" />
+                                    <label htmlFor="bank"> Account Bank </label>
+                                    <Field name="bank" type="text" className="form-control" />
                                     <ErrorMessage
-                                        name="account"
+                                        name="bank"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="bank_branch"> Account Agency </label>
+                                    <Field name="bank_branch" type="text" className="form-control" />
+                                    <ErrorMessage
+                                        name="bank_branch"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="code"> Account Code </label>
+                                    <Field name="code" type="number" className="form-control" />
+                                    <ErrorMessage
+                                        name="code"
                                         component="div"
                                         className="alert alert-danger"
                                     />
@@ -136,14 +150,40 @@ const AddMovimentation: React.FC = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="category"> Category </label>
+                                    <label htmlFor="name"> Category name </label>
                                     <Field
-                                        name="category"
+                                        name="name"
                                         type="text"
                                         className="form-control"
                                     />
                                     <ErrorMessage
-                                        name="category"
+                                        name="name"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="paymentDate"> Payment Date </label>
+                                    <Field
+                                        name="paymentDate"
+                                        type="text"
+                                        className="form-control"
+                                    />
+                                    <ErrorMessage
+                                        name="paymentDate"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="due_date"> Due Date </label>
+                                    <Field
+                                        name="due_date"
+                                        type="text"
+                                        className="form-control"
+                                    />
+                                    <ErrorMessage
+                                        name="due_date"
                                         component="div"
                                         className="alert alert-danger"
                                     />

@@ -3,13 +3,12 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify'
-import { User } from "../../../types/user";
-import { UserAuthenticate } from '../../../services/authservice';
+import { AddAccountAxios } from '../../../services/authservice';
+import { getCustomParse } from "../../../utils/parser";
 
 const AddAccount: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
     const [successful, setSuccessful] = useState<boolean>(false);
-
     const sleep = () => new Promise(r => setTimeout(r, 2000));
 
     //Init da instance
@@ -37,7 +36,7 @@ const AddAccount: React.FC = () => {
         agency: Yup.string().test("len", "A agencia deve possuir 5 caracteres.",
             (val: any) =>
                 val &&
-                val.toString().length == 5
+                val.toString().length === 5
         )
             .required("Campo obrigatório!"),
         type: Yup.string().test("len", "O tipo deve ser válido",
@@ -49,12 +48,12 @@ const AddAccount: React.FC = () => {
     });
 
     const handleRegister = (formValue: any) => {
-        UserAuthenticate(formValue).then(async (response) => {
-            toast.info(response.data);
-            setSuccessful(true);
 
+        AddAccountAxios(getCustomParse(formValue)).then(async (response) => {
+            toast.info('Registered with success');
+            setSuccessful(true);
             await sleep();
-            navigate("/");
+            navigate("/Account");
             window.location.reload();
         },
             (error) => {
@@ -71,7 +70,7 @@ const AddAccount: React.FC = () => {
                 {/* Validation */}
                 <Formik
                     initialValues={initialValues}
-                    validationSchema={validationSchema}//Regras
+                    validationSchema={validationSchema}
                     onSubmit={handleRegister}
                 >
                     <Form>

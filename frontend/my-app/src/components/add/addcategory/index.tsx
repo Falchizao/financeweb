@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify'
-import { UserAuthenticate } from '../../../services/authservice';
+import { AddCategoryAxios } from '../../../services/authservice';
 
 const AddCategory: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -13,11 +13,11 @@ const AddCategory: React.FC = () => {
 
     //Init da instance
     const initialValues: any = {
-        category: ''
+        name: ''
     };
 
     const validationSchema = Yup.object().shape({
-        category: Yup.string().test("len", "Category name must contains 3-20 caracteres.",
+        name: Yup.string().test("len", "Category name must contains 3-20 caracteres.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
@@ -26,12 +26,11 @@ const AddCategory: React.FC = () => {
     });
 
     const handleRegister = (formValue: any) => {
-        //AQUI ENVIOOOOO
-        UserAuthenticate(formValue).then(async (response) => {
-            toast.info(response.data);
+        AddCategoryAxios(formValue).then(async (response) => {
+            toast.info('Registered with success');
             setSuccessful(true);
             await sleep();
-            navigate("/");
+            navigate("/Category");
             window.location.reload();
         },
             (error) => {
@@ -55,10 +54,10 @@ const AddCategory: React.FC = () => {
                         {!successful && (
                             <div>
                                 <div className="form-group">
-                                    <label htmlFor="category"> Category Name </label>
-                                    <Field name="category" type="text" className="form-control" />
+                                    <label htmlFor="name"> Category Name </label>
+                                    <Field name="name" type="text" className="form-control" />
                                     <ErrorMessage
-                                        name="category"
+                                        name="name"
                                         component="div"
                                         className="alert alert-danger"
                                     />
