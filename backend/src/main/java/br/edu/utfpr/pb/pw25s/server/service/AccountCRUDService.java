@@ -1,9 +1,11 @@
 package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.AccountDTO;
+import br.edu.utfpr.pb.pw25s.server.dto.UserDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Account;
+import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,10 +20,12 @@ public class AccountCRUDService extends IService<AccountDTO> {
 
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
+    private final UserCRUDService userCRUDService;
 
-    public AccountCRUDService(AccountRepository accountRepository){
+    public AccountCRUDService(AccountRepository accountRepository, UserCRUDService userCRUDService){
         this.accountRepository = accountRepository;
         this.modelMapper = new ModelMapper();
+        this.userCRUDService = userCRUDService;
 
     }
     @Override
@@ -44,9 +48,12 @@ public class AccountCRUDService extends IService<AccountDTO> {
 
     @Override
     public AccountDTO add(AccountDTO model) {
+        //Need to get the user full info first
+        Optional<UserDTO> user = userCRUDService.getByName(model.getUser().getUsername());
+        model.setUser(modelMapper.map(user, User.class));
+
         log.info("Adding new account...");
         Account account = accountRepository.save(modelMapper.map(model, Account.class));
-
         return modelMapper.map(account, AccountDTO.class);
     }
 
@@ -68,5 +75,9 @@ public class AccountCRUDService extends IService<AccountDTO> {
         log.info("Updating account...");
 
         return modelMapper.map(accountRepository.save(modelMapper.map(model, Account.class)), AccountDTO.class);
+    }
+
+    public Account findByIdentificators(String bank, String agency, Long code){
+        return accountRepository.findByIdentificators(bank, agency, code);
     }
 }

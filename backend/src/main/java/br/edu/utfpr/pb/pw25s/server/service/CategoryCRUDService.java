@@ -69,4 +69,8 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
 
         return modelMapper.map(categoryRepository.save(modelMapper.map(model, Category.class)), CategoryDTO.class);
     }
+
+    public Category findByName(String string){
+        return categoryRepository.findByname(string);
+    }
 }

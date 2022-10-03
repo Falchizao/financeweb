@@ -1,9 +1,10 @@
 package br.edu.utfpr.pb.pw25s.server.service;
 
-import br.edu.utfpr.pb.pw25s.server.dto.AccountDTO;
 import br.edu.utfpr.pb.pw25s.server.dto.MovimentationDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
+import br.edu.utfpr.pb.pw25s.server.model.Account;
+import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.model.Movimentation;
 import br.edu.utfpr.pb.pw25s.server.repository.MovimentationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +22,14 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
     private final MovimentationRepository movimentationRepository;
     private final ModelMapper modelMapper;
     private final BalanceService balanceService;
+    private final UtilsService utilsService;
 
-    public MovimentationCRUDService(MovimentationRepository movimentationRepository, BalanceService balanceService){
+    public MovimentationCRUDService(MovimentationRepository movimentationRepository, BalanceService balanceService,
+                                    UtilsService utilsService){
         this.movimentationRepository = movimentationRepository;
         this.balanceService = balanceService;
         this.modelMapper = new ModelMapper();
+        this.utilsService = utilsService;
     }
     @Override
     public List<MovimentationDTO> getAll() {
@@ -47,11 +51,10 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
 
     @Override
     public MovimentationDTO add(MovimentationDTO model) {
-        log.info("Adding new transaction...");
-        Movimentation movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
+        model = utilsService.syncTransaction(model);
 
         log.info("Finishing transaction");
-        balanceService.attBalance(model.getValue(), modelMapper.map(model.getAccount(), AccountDTO.class));
+        Movimentation movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
 
         return modelMapper.map(movimentation, MovimentationDTO.class);
     }

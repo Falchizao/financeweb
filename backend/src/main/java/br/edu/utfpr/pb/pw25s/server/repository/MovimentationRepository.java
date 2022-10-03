@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MovimentationRepository extends IRepository<Movimentation> {
 
-    @Query("SELECT obj FROM tb_movimentation obj WHERE obj.due_date BETWEEN :min AND :max")
+    @Query("SELECT obj FROM tb_movimentation obj WHERE (obj.due_date BETWEEN :min AND :max) AND obj.paymentDate IS NULL")
     List<Movimentation> findPending(LocalDate min, LocalDate max);
 }

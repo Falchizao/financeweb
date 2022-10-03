@@ -43,7 +43,7 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @Override
-    public ResponseEntity<MovimentationResponse> add(@Valid  @RequestBody MovimentationRequest model) {
+    public ResponseEntity<MovimentationResponse> add(@RequestBody MovimentationRequest model) {
         MovimentationDTO dto = movimentationCRUDService.add(modelMapper.map(model, MovimentationDTO.class));
 
         return new ResponseEntity<>(modelMapper.map(dto, MovimentationResponse.class), HttpStatus.CREATED);

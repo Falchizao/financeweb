@@ -72,4 +72,12 @@ public class UserCRUDService extends IService<UserDTO> {
 
         return modelMapper.map(userRepository.save(modelMapper.map(dto, User.class)), UserDTO.class);
     }
+
+
+    public Optional<UserDTO> getByName(String name) {
+        log.info("Trying to find desired user...");
+        User user = userRepository.findByusername(name);
+
+        return Optional.of(modelMapper.map(user, UserDTO.class));
+    }
 }
