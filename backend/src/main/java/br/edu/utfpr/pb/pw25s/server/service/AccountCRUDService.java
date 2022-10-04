@@ -29,9 +29,9 @@ public class AccountCRUDService extends IService<AccountDTO> {
 
     }
     @Override
-    public List<AccountDTO> getAll() {
+    public List<AccountDTO> getAll(String username) {
         log.info("Fetching accounts...");
-        List<Account> accounts = accountRepository.findAll();
+        List<Account> accounts = accountRepository.findByUsername(username);
 
         return accounts.stream()
                 .map(account -> modelMapper.map(account, AccountDTO.class))

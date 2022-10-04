@@ -28,7 +28,7 @@ public class UserCRUDService extends IService<UserDTO> {
     }
 
     @Override
-    public List<UserDTO> getAll() {
+    public List<UserDTO> getAll(String username) {
         log.info("Fetching users...");
         List<User> users = userRepository.findAll();
 

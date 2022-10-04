@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.edu.utfpr.pb.pw25s.server.service.UserCRUDService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +29,9 @@ public class UserController extends IController<UserResponse, ResponseEntity<?>,
     }
 
     @Override
-    public ResponseEntity<List<UserResponse>> getAll() {
-        List<UserDTO> usersDTO = userCRUDService.getAll();
+    public ResponseEntity<List<UserResponse>> getAll(HttpServletRequest httpServletRequest) {
+
+        List<UserDTO> usersDTO = userCRUDService.getAll(null);
 
         return new ResponseEntity<>(usersDTO.stream()
                 .map(personDTO -> modelMapper.map(personDTO, UserResponse.class))

@@ -3,8 +3,6 @@ package br.edu.utfpr.pb.pw25s.server.service;
 import br.edu.utfpr.pb.pw25s.server.dto.MovimentationDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
-import br.edu.utfpr.pb.pw25s.server.model.Account;
-import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.model.Movimentation;
 import br.edu.utfpr.pb.pw25s.server.repository.MovimentationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +29,11 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
         this.modelMapper = new ModelMapper();
         this.utilsService = utilsService;
     }
+
     @Override
-    public List<MovimentationDTO> getAll() {
+    public List<MovimentationDTO> getAll(String username) {
         log.info("Fetching transactions...");
-        List<Movimentation> movimentations = movimentationRepository.findAll();
+        List<Movimentation> movimentations = movimentationRepository.findByUser(username);
 
         return movimentations.stream()
                 .map(movimentation -> modelMapper.map(movimentation, MovimentationDTO.class))
@@ -79,10 +78,10 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
         return modelMapper.map(movimentationRepository.save(modelMapper.map(model, Movimentation.class)), MovimentationDTO.class);
     }
 
-    public List<MovimentationDTO>findPendingTransactionByDate(String min, String max){
+    public List<MovimentationDTO>findPendingTransactionByDate(String min, String max, String username){
         log.info("Fetching pending transaction between required dates...");
 
-        return movimentationRepository.findPending(LocalDate.parse(min), LocalDate.parse(max))
+        return movimentationRepository.findPending(LocalDate.parse(min), LocalDate.parse(max), username)
                 .stream().map(pending -> modelMapper.map(pending, MovimentationDTO.class)).collect(Collectors.toList());
     }
 }

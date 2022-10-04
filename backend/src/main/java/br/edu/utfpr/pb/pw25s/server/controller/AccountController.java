@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +33,8 @@ public class AccountController extends IController<AccountResponse, ResponseEnti
     }
 
     @Override
-    public ResponseEntity<List<AccountResponse>> getAll() {
-        List<AccountDTO> accountList = accountCRUDService.getAll();
+    public ResponseEntity<List<AccountResponse>> getAll(HttpServletRequest httpServletRequest) {
+        List<AccountDTO> accountList = accountCRUDService.getAll(httpServletRequest.getUserPrincipal().getName());
 
         return new ResponseEntity<>(accountList.stream()
                 .map(accountDTO -> modelMapper.map(accountDTO, AccountResponse.class))

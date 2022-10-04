@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +28,8 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @Override
-    public ResponseEntity<List<MovimentationResponse>> getAll() {
-        List<MovimentationDTO> movimentationDTOS = movimentationCRUDService.getAll();
+    public ResponseEntity<List<MovimentationResponse>> getAll(HttpServletRequest httpServletRequest) {
+        List<MovimentationDTO> movimentationDTOS = movimentationCRUDService.getAll(httpServletRequest.getUserPrincipal().getName());
 
         return new ResponseEntity<>(movimentationDTOS.stream()
                 .map(movimentationDTO -> modelMapper.map(movimentationDTO, MovimentationResponse.class))
@@ -64,8 +65,10 @@ public class MovimentationController extends IController<MovimentationResponse, 
     }
 
     @GetMapping("/pending")
-    public ResponseEntity<List<MovimentationResponse>> findPendingTransactionsByDate(@RequestParam(value = "minDate", defaultValue = "") String min, @RequestParam(value = "maxDate", defaultValue = "") String max){
-        List<MovimentationDTO> movDTO = movimentationCRUDService.findPendingTransactionByDate(min, max);
+    public ResponseEntity<List<MovimentationResponse>> findPendingTransactionsByDate(@RequestParam(value = "minDate", defaultValue = "") String min,
+                                                                                     @RequestParam(value = "maxDate", defaultValue = "") String max,
+                                                                                     HttpServletRequest httpServletRequest){
+        List<MovimentationDTO> movDTO = movimentationCRUDService.findPendingTransactionByDate(min, max, httpServletRequest.getUserPrincipal().getName());
 
         return new ResponseEntity<>(movDTO.stream()
                 .map(dto -> modelMapper.map(dto, MovimentationResponse.class))

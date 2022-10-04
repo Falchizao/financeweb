@@ -2,6 +2,8 @@ package br.edu.utfpr.pb.pw25s.server.generic;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +11,7 @@ import java.util.Optional;
 public abstract class IController <A, B, C>{
 
     @GetMapping
-    public abstract ResponseEntity<List<A>> getAll();
+    public abstract ResponseEntity<List<A>> getAll(HttpServletRequest httpServletRequest);
 
     @GetMapping("/id")
     public abstract ResponseEntity<Optional<A>> getById(@PathVariable Long id);

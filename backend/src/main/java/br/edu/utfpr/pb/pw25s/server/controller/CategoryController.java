@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +32,8 @@ public class CategoryController extends IController <CategoryResponse, ResponseE
     }
 
     @Override
-    public ResponseEntity<List<CategoryResponse>> getAll() {
-        List<CategoryDTO> categoryList = categoryService.getAll();
+    public ResponseEntity<List<CategoryResponse>> getAll(HttpServletRequest httpServletRequest) {
+        List<CategoryDTO> categoryList = categoryService.getAll(httpServletRequest.getUserPrincipal().getName());
 
         return new ResponseEntity<>(categoryList.stream()
                 .map(categoryDTO -> modelMapper.map(categoryDTO, CategoryResponse.class))

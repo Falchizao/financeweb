@@ -2,7 +2,6 @@ package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.CategoryDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
-import br.edu.utfpr.pb.pw25s.server.handler.modelException.ErrorMessage;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
@@ -26,7 +25,7 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
 
     }
     @Override
-    public List<CategoryDTO> getAll() {
+    public List<CategoryDTO> getAll(String username) {
         log.info("Fetching categories...");
         List<Category> categories = categoryRepository.findAll();
 
