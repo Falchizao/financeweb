@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.falchi-add-btn:hover{
+    background: rgba(185, 189, 188, 0.1);
+}
+
 .falchi-add-btn img {
     width: 30px;
 }

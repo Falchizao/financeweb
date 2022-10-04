@@ -17,6 +17,7 @@ function AccountCard() {
             window.location.reload();
         }
         GetAllAccounts().then(response => {
+            console.log(response.data);
             setAccounts(response.data);
         });
 
@@ -50,7 +51,7 @@ function AccountCard() {
                                     <td>{account.code}</td>
                                     <td>{account.bank_branch}</td>
                                     <td>{account.bank}</td>
-                                    <td>{account.accountType}</td>
+                                    <td>{account.type}</td>
                                     {/* <td>
                                         <EditButton id={account.id}/>
                                     </td> */}

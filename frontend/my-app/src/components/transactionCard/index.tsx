@@ -17,6 +17,7 @@ function TransactionsCard(){
             window.location.reload();
         }
         GetMovimentations().then(response => {
+            console.log(response.data);
             setMov(response.data);
         });
     }, [navigate]);
@@ -39,7 +40,7 @@ function TransactionsCard(){
                             <th>Due Date</th>
                             <th>Category</th>
                             <th>Description</th>
-                            <th>Edit</th>
+                            <th>Type</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -53,9 +54,10 @@ function TransactionsCard(){
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
                                     <td>{mov.description}</td>
-                                    <td>
+                                    <td>{mov.type}</td>
+                                    {/* <td>
                                         <EditButton id={mov.id}/>
-                                    </td>
+                                    </td> */}
                                     <td>
                                         <DeleteButton id={mov.id} deletionSector={2} />
                                     </td>

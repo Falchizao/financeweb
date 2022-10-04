@@ -57,7 +57,7 @@ const AddAccount: React.FC = () => {
             window.location.reload();
         },
             (error) => {
-                toast.info(error);
+                toast.info("Error, try again!");
                 setSuccessful(false);
             }
         );

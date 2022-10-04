@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.falchi-del-btn:hover{
+    background: rgba(232, 213, 213, 0.1);
+}
+
 .falchi-del-btn img {
     width: 30px;
 }

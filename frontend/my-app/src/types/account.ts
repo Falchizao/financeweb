@@ -6,5 +6,5 @@ export type Account = {
     code: string;
     bank_branch: string;
     bank: string;
-    accountType: number;
+    type: string;
 }

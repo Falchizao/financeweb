@@ -10,7 +10,7 @@ function NavBar() {
     const [name, setName] = useState(userName);
 
     useEffect(() => {
-        userName = JSON.parse(localStorage.getItem('@FinanceWeb::nameuser')|| '{}');
+        userName = JSON.parse(localStorage.getItem('@FinanceWeb::nameuser') || '{}');
         if (userName) {
             setName(userName);
         }
@@ -21,20 +21,17 @@ function NavBar() {
     return (
         <header>
             <div className="falchi-navbar-container">
-                <p>Finance Web</p>
+                <h1 className='title ms-3'>Finance Web</h1>
                 <Link className="btn btn-primary" to="/Home">Home</Link>
                 <Link className="btn btn-primary" to="/Account">Account</Link>
                 <Link className="btn btn-primary" to="/Category">Category</Link>
                 <Link className="btn btn-primary" to="/Movimentation">Movimentation</Link>
-                <LogoutBtn />
-                <div>
-                    <div className='d-flex'>
-                        <p>
-                            Repository <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
-                        </p>
-                    </div>
-                    <div className='title'>Welcome {name}!</div>
+                <div className='title'>
+                    <div >Welcome</div>
+                    <div>{name}!</div>
                 </div>
+                <a href='https://github.com/Falchizao/FinanceWeb'> <img src={GithubLogo} alt="Falchi" width="60" /></a>
+                <LogoutBtn/>
             </div>
         </header>
 

@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.falchi-logout-btn:hover{
+    background: rgba(233, 185, 185, 0.1);
+}
+
 .falchi-logout-btn img {
     width: 30px;
 }

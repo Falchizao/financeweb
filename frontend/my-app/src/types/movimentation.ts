@@ -10,5 +10,5 @@ export type Movimentation = {
     paymentDate: string;
     category: Category;
     description: string;
-    transactionType: number;
+    type: string;
 }
