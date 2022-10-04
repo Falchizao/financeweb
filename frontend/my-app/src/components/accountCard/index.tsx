@@ -17,7 +17,6 @@ function AccountCard() {
             window.location.reload();
         }
         GetAllAccounts().then(response => {
-            console.log(response.data);
             setAccounts(response.data);
         });
 

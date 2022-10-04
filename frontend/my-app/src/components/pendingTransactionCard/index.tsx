@@ -8,14 +8,13 @@ import { PendingMovimentations } from '../../services/authservice';
 import './styles.css'
 
 function PendingTransactionsCard() {
-    let result: number = 0;
     let navigate: NavigateFunction = useNavigate();
     const max = new Date();
     const min = new Date(new Date().setDate(new Date().getDate() - 365)); //For datePicker
     const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(max);
     const [pendingMovimentations, setMov] = useState<Movimentation[]>([]);
-    const [totalPending, setPending] = useState(result);
+    const [totalPending, setPending] = useState<number>(0);
 
     useEffect(() => {
         const userToken = localStorage.getItem('@FinanceWeb::user');
@@ -27,15 +26,18 @@ function PendingTransactionsCard() {
         const dmin = minDate.toISOString().slice(0, 10);
         const dmax = maxDate.toISOString().slice(0, 10);
 
-        PendingMovimentations(dmin, dmax).then(response => {
-            setMov(response.data);
-            result = pendingMovimentations.reduce((accumulator, obj) => {
-                return accumulator + obj.value;
-            }, 0);
-            setPending(result);
-        });
+        const fetchMovimentations = async () => {
+            const response = await PendingMovimentations(dmin, dmax)
+            const movimentations = response.data
+            const pendings =  response.data.reduce((acc : any, obj : any) => acc + obj.value, 0)
+                
+            setMov(movimentations)
+            setPending(pendings)
+        }
 
-    }, [minDate, maxDate, navigate, result]);
+        fetchMovimentations()
+
+    }, [minDate, maxDate, navigate]);
 
     return (
         <div className="component-card">

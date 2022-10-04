@@ -17,7 +17,6 @@ function TransactionsCard(){
             window.location.reload();
         }
         GetMovimentations().then(response => {
-            console.log(response.data);
             setMov(response.data);
         });
     }, [navigate]);
