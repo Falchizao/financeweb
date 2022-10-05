@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw25s.server.handler;
 
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInsertionConflictException;
 import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserInvalidException;
 import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserNotFoundInSystem;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ErrorMessage;
@@ -38,4 +39,8 @@ class RestExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ObjectInsertionConflictException.class)
+    public ResponseEntity<?> handleUserNotFound(ObjectInsertionConflictException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
+    }
 }

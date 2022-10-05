@@ -2,6 +2,7 @@ package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.MovimentationDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInsertionConflictException;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Movimentation;
 import br.edu.utfpr.pb.pw25s.server.repository.MovimentationRepository;
@@ -50,10 +51,15 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
 
     @Override
     public MovimentationDTO add(MovimentationDTO model) {
-        model = utilsService.syncTransaction(model);
-
+        Movimentation movimentation;
         log.info("Finishing transaction");
-        Movimentation movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
+
+        try{
+            model = utilsService.syncTransaction(model);
+            movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
+        }catch(Exception e){
+            throw new ObjectInsertionConflictException("Dados da movimentação inválidos, favor verificar!");
+        }
 
         return modelMapper.map(movimentation, MovimentationDTO.class);
     }

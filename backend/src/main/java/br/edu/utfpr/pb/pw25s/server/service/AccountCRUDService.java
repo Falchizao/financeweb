@@ -3,6 +3,7 @@ package br.edu.utfpr.pb.pw25s.server.service;
 import br.edu.utfpr.pb.pw25s.server.dto.AccountDTO;
 import br.edu.utfpr.pb.pw25s.server.dto.UserDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInsertionConflictException;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Account;
 import br.edu.utfpr.pb.pw25s.server.model.User;
@@ -48,9 +49,13 @@ public class AccountCRUDService extends IService<AccountDTO> {
 
     @Override
     public AccountDTO add(AccountDTO model) {
-        //Need to get the user full info first
-        Optional<UserDTO> user = userCRUDService.getByName(model.getUser().getUsername());
-        model.setUser(modelMapper.map(user, User.class));
+
+        try{
+            Optional<UserDTO> user = userCRUDService.getByName(model.getUser().getUsername());
+            model.setUser(modelMapper.map(user, User.class));
+        }catch(Exception e){
+            throw new ObjectInsertionConflictException("Dados do usuário inválidos, favor verificar!");
+        }
 
         log.info("Adding new account...");
         Account account = accountRepository.save(modelMapper.map(model, Account.class));

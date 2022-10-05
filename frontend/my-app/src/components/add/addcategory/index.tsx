@@ -33,7 +33,7 @@ const AddCategory: React.FC = () => {
             window.location.reload();
         },
             (error) => {
-                toast.info("Error, try again!");
+                toast.info(error.response.data);
                 setSuccessful(false);
             }
         );
