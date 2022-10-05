@@ -16,7 +16,7 @@ const AddCategory: React.FC = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string().test("len", "Category name must contains 3-20 caracteres.",
+        name: Yup.string().test("len", "Category name must contains 3-20 characters.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&

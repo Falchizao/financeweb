@@ -13,7 +13,7 @@ const AddMovimentation: React.FC = () => {
 
     //Init da instance
     const initialValues: any = {
-        code: 0,
+        code: '',
         bank_branch: '',
         bank: '',
         value: 0,
@@ -26,18 +26,17 @@ const AddMovimentation: React.FC = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        code: Yup.string().test("len", "Account must be valid",
+        code: Yup.string().test("len", "Bank code must contains 3 characters",
             (val: any) =>
                 val &&
-                val.toString().length >= 1 &&
-                val.toString().length <= 20
+                val.toString().length === 3
         ).required("Required field!"),
-        bank_branch: Yup.string().test("len", "Agency must be valid",
+        bank_branch: Yup.string().test("len", "Agency number must contains 5 characters.",
             (val: any) =>
                 val &&
-                val.toString().length === 5 
+                val.toString().length === 5
         ).required("Required field!"),
-        bank: Yup.string().test("len", "Bank name must be valid",
+        bank: Yup.string().test("len", "Bank name must contains 3-20 characters.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
@@ -46,27 +45,31 @@ const AddMovimentation: React.FC = () => {
         value: Yup.string().test("len", "Transaction Value must be valid",
             (val: any) =>
                 val &&
-                val.toString().length >= 1
+                val.toString().length >= 1 &&
+                val >= 0
         ).required("Required field!"),
         paidValue: Yup.string().test("len", "Paid Value must be valid",
             (val: any) =>
                 val &&
-                val.toString().length >= 1
+                val.toString().length >= 1 &&
+                val >= 0
         ),
-        name: Yup.string().test("len", "Category Name must be valid",
+        name: Yup.string().test("len", "Category name must contains 3-20 characters.",
+            (val: any) =>
+                val &&
+                val.toString().length >= 3 &&
+                val.toString().length <= 20
+        ).required("Required field!"),
+        description: Yup.string().test("len", "Description must contains at least 1 character",
             (val: any) =>
                 val &&
                 val.toString().length >= 1
         ).required("Required field!"),
-        description: Yup.string().test("len", "Value must be valid",
+        transactionType: 
+            Yup.string().test("len", "Transaction Type must be valid (0 for Revenue, 1 for Expense, 2 for Transfer)",
             (val: any) =>
                 val &&
-                val.toString().length >= 1
-        ).required("Required field!"),
-        transactionType: Yup.string().test("len", "Value must be valid",
-            (val: any) =>
-                val &&
-                val.toString().length >= 1
+                val.toString().length == 1
         ).required("Required field!"),
     });
 
@@ -204,7 +207,7 @@ const AddMovimentation: React.FC = () => {
                                     <label htmlFor="transactionType"> Transaction type </label>
                                     <Field
                                         name="transactionType"
-                                        type="number"
+                                        type="text"
                                         className="form-control"
                                     />
                                     <ErrorMessage

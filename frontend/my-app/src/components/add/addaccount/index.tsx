@@ -20,31 +20,31 @@ const AddAccount: React.FC = () => {
     };
 
     const validationSchema = Yup.object().shape({
-        bank: Yup.string().test("len", "Nome do banco deve conter entre 3 e 20 caracteres.",
+        bank: Yup.string().test("len", "Bank name must contains 3-20 characters.",
             (val: any) =>
                 val &&
                 val.toString().length >= 3 &&
                 val.toString().length <= 20
-        ).required("Campo obrigatório!"),
-        code: Yup.string().test("len", "O código deve possuir entre 3 e 20 caracteres.",
+        ).required("Required field!"),
+        code: Yup.string().test("len", "Bank code must contains 3 characters.",
             (val: any) =>
                 val &&
-                val.toString().length >= 3 &&
-                val.toString().length <= 20
+                val.toString().length === 3
         )
-            .required("Campo obrigatório!"),
-        agency: Yup.string().test("len", "A agencia deve possuir 5 caracteres.",
+            .required("Required field!"),
+        agency: Yup.string().test("len", "Agency number must contains 5 characters.",
             (val: any) =>
                 val &&
                 val.toString().length === 5
         )
-            .required("Campo obrigatório!"),
-        type: Yup.string().test("len", "O tipo deve ser válido",
-            (val: any) =>
-                val &&
-                val.toString().length < 10
+            .required("Required field!"),
+        type:
+        Yup.string().test("len", "Type must be valid (0 for CC, 1 for CP, 2 for CASA",
+        (val: any) =>
+            val &&
+            val.toString().length == 1 
         )
-            .required("Campo obrigatório!"),
+            .required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
