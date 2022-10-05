@@ -5,12 +5,11 @@ import * as Yup from "yup";
 import { toast } from 'react-toastify'
 import { AddMovimentationsAxios } from '../../../services/authservice';
 import { getCustomParseMovimentation } from "../../../utils/parser";
+import { sleep } from "../../../services/dataservice";
 
 const AddMovimentation: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
     const [successful, setSuccessful] = useState<boolean>(false);
-
-    const sleep = () => new Promise(r => setTimeout(r, 2000));
 
     //Init da instance
     const initialValues: any = {

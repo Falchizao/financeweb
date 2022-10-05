@@ -1,6 +1,7 @@
 import addbtn from '../../assets/img/add-icon.svg'
 import './styles.css'
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 type Props = {
     addSector: number
 }

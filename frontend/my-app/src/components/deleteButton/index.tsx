@@ -2,13 +2,13 @@ import { toast } from 'react-toastify'
 import addbtn from '../../assets/img/icon-delete.svg'
 import './styles.css'
 import { DeleteAccount, DeleteCategory, DeleteMovimentation } from '../../services/authservice';
+import { sleep } from '../../services/dataservice';
 
 type Props = {
     id: number,
     deletionSector: number
 }
 
-const sleep = () => new Promise(r => setTimeout(r, 2000));
 
 function handleClick(deletionID: number, deletionSector: number) {
     switch (deletionSector) {

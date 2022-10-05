@@ -4,12 +4,11 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify'
 import { AddCategoryAxios } from '../../../services/authservice';
+import { sleep } from "../../../services/dataservice";
 
 const AddCategory: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
     const [successful, setSuccessful] = useState<boolean>(false);
-
-    const sleep = () => new Promise(r => setTimeout(r, 2000));
 
     //Init da instance
     const initialValues: any = {

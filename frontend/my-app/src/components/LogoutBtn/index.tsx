@@ -1,5 +1,5 @@
 import logoutButton from '../../assets/img/logout.svg'
-import {Logout} from '../../services/authservice';
+import { Logout } from '../../services/dataservice';
 import './styles.css'
 
 function handleClick() {

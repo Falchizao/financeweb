@@ -16,3 +16,12 @@ export const reloadSystem = () => {
     window.location.reload();
 };
 
+//Logout
+export const Logout = () => {
+    localStorage.removeItem("@FinanceWeb::user");
+    localStorage.removeItem("@FinanceWeb::nameuser");
+    window.location.reload();
+};
+
+export const sleep = () => new Promise(r => setTimeout(r, 2000));
+

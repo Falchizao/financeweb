@@ -6,6 +6,7 @@ import DeleteButton from "../deleteButton"
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { PendingMovimentations } from '../../services/authservice';
 import './styles.css'
+import EditButton from "../editbutton";
 
 function PendingTransactionsCard() {
     let navigate: NavigateFunction = useNavigate();
@@ -70,6 +71,7 @@ function PendingTransactionsCard() {
                             <th>Due Date</th>
                             <th>Category</th>
                             <th>Description</th>
+                            <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -82,6 +84,9 @@ function PendingTransactionsCard() {
                                     <td>{mov.due_date}</td>
                                     <td>{mov.category.name}</td>
                                     <td>{mov.description}</td>
+                                    <td>
+                                        <EditButton id={mov.id} /> 
+                                    </td>
                                     <td>
                                         <DeleteButton id={mov.id} deletionSector={2}/>
                                     </td>
