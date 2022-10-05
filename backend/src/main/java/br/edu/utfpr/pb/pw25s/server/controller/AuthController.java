@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import br.edu.utfpr.pb.pw25s.server.config.security.AuthService;
 import br.edu.utfpr.pb.pw25s.server.config.security.JwtTokenService;
 import br.edu.utfpr.pb.pw25s.server.dto.UserDTO;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserNotFoundInSystem;
 import br.edu.utfpr.pb.pw25s.server.model.requestModel.UserRequest;
 import br.edu.utfpr.pb.pw25s.server.service.UserCRUDService;
 import org.modelmapper.ModelMapper;
@@ -40,10 +41,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> getUser(@Valid @RequestBody UserRequest userLogin) {
-
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        Authentication authentication;
+        try{
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }catch(Exception e){
+            throw new UserNotFoundInSystem("Crendenciais não encontradas no sistema!");
+        }
         return ResponseEntity.ok(jwtTokenService.generateJwtToken(authentication));
     }
 
@@ -53,10 +57,8 @@ public class AuthController {
         UserDTO dto = modelMapper.map(newUser, UserDTO.class);
         dto.setPassword(encoder.encode(dto.getPassword()));
 
-        if(userCRUDService.add(dto) != null){
-            return ResponseEntity.ok("Registrado com sucesso, agora você pode realizar o login!");
-        };
+        userCRUDService.add(dto);
 
-        return ResponseEntity.ok("Algo de errado aconteceu ao tentar registrar o usuário, tente novamente");
+        return ResponseEntity.ok("Registrado com sucesso, agora você pode realizar o login!");
     }
 }

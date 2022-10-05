@@ -1,5 +1,7 @@
 package br.edu.utfpr.pb.pw25s.server.handler;
 
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserInvalidException;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserNotFoundInSystem;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ErrorMessage;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,16 @@ class RestExceptionHandler {
         ErrorMessage error = new ErrorMessage(exception); //Personalized Message
 
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserInvalidException.class)
+    public ResponseEntity<?> handleUserConflict(UserInvalidException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserNotFoundInSystem.class)
+    public ResponseEntity<?> handleUserNotFound(UserNotFoundInSystem exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }

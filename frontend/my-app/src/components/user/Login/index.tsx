@@ -30,7 +30,7 @@ const Login: React.FC<Props> = () => {
                 window.location.reload();
             },
             (error) => {
-                toast.info("Not found in system!");
+                toast.info(error.response.data);
             }
         );
     };

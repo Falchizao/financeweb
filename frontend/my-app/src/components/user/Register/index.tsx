@@ -39,13 +39,12 @@ const Register: React.FC = () => {
         UserAuthenticate(formValue).then(async (response) => {
             toast.info(response.data);
             setSuccessful(true);
-
             await sleep();
             navigate("/");
             window.location.reload();
         },
             (error) => {
-                toast.info(error);
+                toast.info(error.response.data);
                 setSuccessful(false);
             }
         );
