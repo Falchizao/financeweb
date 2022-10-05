@@ -84,4 +84,10 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
         return movimentationRepository.findPending(LocalDate.parse(min), LocalDate.parse(max), username)
                 .stream().map(pending -> modelMapper.map(pending, MovimentationDTO.class)).collect(Collectors.toList());
     }
+
+    public void markAsPaid(Long id){
+        log.info("Updating pending transaction to paid...");
+
+        movimentationRepository.setAsPaid(id, LocalDate.now());
+    }
 }

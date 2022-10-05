@@ -74,4 +74,10 @@ public class MovimentationController extends IController<MovimentationResponse, 
                 .map(dto -> modelMapper.map(dto, MovimentationResponse.class))
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
+
+    @PostMapping("/updatePending/{id}")
+    public ResponseEntity<?> updantePendingTransactionToPaid(@PathVariable Long id){
+        movimentationCRUDService.markAsPaid(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -1,4 +1,7 @@
-import editbtn from '../../assets/img/icon-edit.svg'
+import { toast } from 'react-toastify';
+import editbtn from '../../assets/img/iconmonstr-check-mark-1.svg'
+import { UpdateMovimentationAsPaid } from '../../services/authservice';
+import { sleep } from '../../services/dataservice';
 import './styles.css'
 
 type Props = {
@@ -6,7 +9,13 @@ type Props = {
 }
 
 function handleClick(editID : number){
-
+    UpdateMovimentationAsPaid(editID).then(async response => {
+        toast.info("Updated as paid with success!");
+        await sleep();
+        window.location.reload();
+    }, (error) => {
+        toast.info("Não foi possível realizar tal ação, tente novamente!");
+    });
 
 }
 

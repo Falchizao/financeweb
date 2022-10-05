@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AccountRepository extends IRepository<Account> {
 
-    @Query("SELECT obj FROM tb_account obj WHERE obj.bank = :bank AND obj.bank_branch = :agency AND obj.code = :code")
+    @Query("SELECT obj FROM tb_account obj WHERE obj.bank =:bank AND obj.bank_branch = :agency AND obj.code =:code")
     Account findByIdentificators(String bank, String agency, Long code);
 
-    @Query("SELECT acc FROM tb_account acc where acc.user.username = :userName")
+    @Query("SELECT acc FROM tb_account acc where acc.user.username =:userName")
     List<Account> findByUsername(String userName);
 
 }
