@@ -13,16 +13,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.List;
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AutoConfigureMockMvc
@@ -55,23 +50,20 @@ public class UserTest {
     }
 
     @Test
-    public void find_all_usersAndCompare() throws Exception {
+    @DisplayName("Should return ok if valid object")
+    public void postCategory_whenUserIsValid_receiveOk(){
         User user = createValidUser();
+        ResponseEntity<Object> response = testRestTemplate.postForEntity("/api/user/registrar", user, Object.class);
 
-        List<User> listUsers = List.of(user);
-        when(userRepository.findAll()).thenReturn(listUsers);
-        this.mockMvc.perform(get("/api/atendentes"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Pegorini")));
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    @DisplayName("Should return all users ")
-    public void postUser_whenUserIsValid_userSavedToDatabase() {
+    @DisplayName("Should return the database populated size if the object is valid")
+    public void postUser_whenUserIsValid_saveInDatabase(){
         User user = createValidUser();
+        testRestTemplate.postForEntity("/api/user/registrar", user, Object.class);
 
-        ResponseEntity<Object> response =
-                testRestTemplate.postForEntity("/api/user/registrar", user, Object.class);
         assertThat( userRepository.count() ).isEqualTo(1);
     }
 
