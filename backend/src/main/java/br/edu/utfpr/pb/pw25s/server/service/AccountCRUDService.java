@@ -54,7 +54,7 @@ public class AccountCRUDService extends IService<AccountDTO> {
             Optional<UserDTO> user = userCRUDService.getByName(model.getUser().getUsername());
             model.setUser(modelMapper.map(user, User.class));
         }catch(Exception e){
-            throw new ObjectInsertionConflictException("Dados do usuário inválidos, favor verificar!");
+            throw new ObjectInsertionConflictException("User data is invalid!");
         }
 
         log.info("Adding new account...");

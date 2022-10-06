@@ -58,7 +58,7 @@ public class MovimentationCRUDService extends IService<MovimentationDTO> {
             model = utilsService.syncTransaction(model);
             movimentation = movimentationRepository.save(modelMapper.map(model, Movimentation.class));
         }catch(Exception e){
-            throw new ObjectInsertionConflictException("Dados da movimentação inválidos, favor verificar!");
+            throw new ObjectInsertionConflictException("Transaction data is invalid!");
         }
 
         return modelMapper.map(movimentation, MovimentationDTO.class);

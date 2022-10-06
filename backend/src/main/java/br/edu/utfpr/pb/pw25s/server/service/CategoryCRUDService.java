@@ -51,7 +51,7 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
         try{
             category = categoryRepository.save(modelMapper.map(model, Category.class));
         }catch(Exception e){
-            throw new ObjectInsertionConflictException("Dados do usuário inválidos, favor verificar!");
+            throw new ObjectInsertionConflictException("Category data is invalid!");
         }
 
         return modelMapper.map(category, CategoryDTO.class);
