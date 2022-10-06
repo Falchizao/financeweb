@@ -39,11 +39,7 @@ const AddAccount: React.FC = () => {
         )
             .required("Required field!"),
         type:
-        Yup.string().test("len", "Type must be valid (0 for CC, 1 for CP, 2 for CASA",
-        (val: any) =>
-            val &&
-            val.toString().length == 1 
-        )
+        Yup.string().oneOf(['0','1','2'], "Type must be valid (0 for CC, 1 for CP, 2 for CASA)")
             .required("Required field!"),
     });
 

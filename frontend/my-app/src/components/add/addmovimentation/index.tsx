@@ -66,11 +66,8 @@ const AddMovimentation: React.FC = () => {
                 val.toString().length >= 1
         ).required("Required field!"),
         transactionType: 
-            Yup.string().test("len", "Transaction Type must be valid (0 for Revenue, 1 for Expense, 2 for Transfer)",
-            (val: any) =>
-                val &&
-                val.toString().length == 1
-        ).required("Required field!"),
+            Yup.string().oneOf(['0','1','2'], "Transaction Type must be valid (0 for Revenue, 1 for Expense, 2 for Transfer)")
+        .required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
