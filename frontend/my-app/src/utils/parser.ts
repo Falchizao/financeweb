@@ -1,4 +1,4 @@
-export const getCustomParse = (formValue: any) =>{
+export const getCustomParse = (formValue: any, typeSelected: number) =>{
     const item = {
         "user": {
             "id": 0,
@@ -9,7 +9,7 @@ export const getCustomParse = (formValue: any) =>{
         "code": formValue.code,
         "bank_branch" : formValue.agency,
         "bank" : formValue.bank,
-        "type" : formValue.type,
+        "type" : typeSelected,
         "balance" : 0
     }    
     return item;

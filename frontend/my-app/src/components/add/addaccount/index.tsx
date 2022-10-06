@@ -8,16 +8,27 @@ import { getCustomParse } from "../../../utils/parser";
 import { sleep } from "../../../services/dataservice";
 
 const AddAccount: React.FC = () => {
+
     let navigate: NavigateFunction = useNavigate();
     const [successful, setSuccessful] = useState<boolean>(false);
-
-    //Init da instance
+    const types = [{ id: '0', name: 'Conta Corrente' }, { id: '1', name: 'Conta Poupança' }, { id: '2', name: 'Casa' }];
     const initialValues: any = {
         bank: '',
         code: '',
         agency: '',
-        type: ''
     };
+
+    let typeSelected = 0;
+    let typeList = types.length > 0
+        && types.map((item: any, i: any) => {
+            return (
+                <option key={i} value={item.id}>{item.name}</option>
+            )
+        }, this);
+
+    let selectType = (e : any) => {
+        typeSelected = e.target.selectedIndex;
+    }
 
     const validationSchema = Yup.object().shape({
         bank: Yup.string().test("len", "Bank name must contains 3-20 characters.",
@@ -38,14 +49,11 @@ const AddAccount: React.FC = () => {
                 val.toString().length === 5
         )
             .required("Required field!"),
-        type:
-        Yup.string().oneOf(['0','1','2'], "Type must be valid (0 for CC, 1 for CP, 2 for CASA)")
-            .required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
-
-        AddAccountAxios(getCustomParse(formValue)).then(async (response) => {
+        console.log(formValue);
+        AddAccountAxios(getCustomParse(formValue, typeSelected)).then(async (response) => {
             toast.info('Registered with success');
             setSuccessful(true);
             await sleep();
@@ -103,18 +111,11 @@ const AddAccount: React.FC = () => {
                                         className="alert alert-danger"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="type"> Type </label>
-                                    <Field
-                                        name="type"
-                                        type="text"
-                                        className="form-control"
-                                    />
-                                    <ErrorMessage
-                                        name="type"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+                                <div className="mt-1 mb-4">
+                                    <div><label htmlFor="type" className="m-1"> Type </label></div>
+                                    <select onChange={selectType}>
+                                        {typeList}
+                                    </select>
                                 </div>
                                 <div className="form-group m-1">
                                     <button type="submit" className="btn btn-primary btn-block">Register</button>
