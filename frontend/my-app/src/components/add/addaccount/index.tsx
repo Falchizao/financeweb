@@ -52,7 +52,6 @@ const AddAccount: React.FC = () => {
     });
 
     const handleRegister = (formValue: any) => {
-        console.log(formValue);
         AddAccountAxios(getCustomParse(formValue, typeSelected)).then(async (response) => {
             toast.info('Registered with success');
             setSuccessful(true);

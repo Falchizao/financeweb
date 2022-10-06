@@ -15,22 +15,24 @@ export const getCustomParse = (formValue: any, typeSelected: number) =>{
     return item;
 }
 
-export const getCustomParseMovimentation = (formValue: any) =>{
+export const getCustomParseMovimentation = (formValue: any, typeSelected: number, accSelected: number, categorySelected: number) =>{
     const item = {
             "account": {
-                "code": formValue.code,
-                "bank_branch": formValue.bank_branch,
-                "bank": formValue.bank
+                "id": accSelected,
+                "code": "",
+                "bank_branch": "",
+                "bank": ""
             },
             "value": formValue.value,
             "due_date": formValue.due_date,
             "paidValue": formValue.paidValue,
             "paymentDate": formValue.paymentDate,
             "category": {
-                "name": formValue.name
+                "id": categorySelected,
+                "name": ""
             },
             "description": formValue.description,
-            "type": formValue.transactionType
+            "type": typeSelected
     }
     return item;
 }
