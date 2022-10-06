@@ -134,7 +134,7 @@ const AddMovimentation: React.FC = () => {
                             <div>
                                 <div className="form-group">
                                     <label htmlFor="value"> Value R$ </label>
-                                    <Field name="value" type="text" className="form-control" />
+                                    <Field name="value" type="text" className="form-control" placeholder="value"/>
                                     <ErrorMessage
                                         name="value"
                                         component="div"
@@ -147,6 +147,7 @@ const AddMovimentation: React.FC = () => {
                                         name="paidValue"
                                         type="text"
                                         className="form-control"
+                                        placeholder="paid value"
                                     />
                                     <ErrorMessage
                                         name="paidValue"
@@ -160,6 +161,7 @@ const AddMovimentation: React.FC = () => {
                                         name="paymentDate"
                                         type="text"
                                         className="form-control"
+                                        placeholder="yyyy-mm-dd"
                                     />
                                     <ErrorMessage
                                         name="paymentDate"
@@ -173,6 +175,7 @@ const AddMovimentation: React.FC = () => {
                                         name="due_date"
                                         type="text"
                                         className="form-control"
+                                        placeholder="yyyy-mm-dd"
                                     />
                                     <ErrorMessage
                                         name="due_date"
@@ -186,6 +189,7 @@ const AddMovimentation: React.FC = () => {
                                         name="description"
                                         type="text"
                                         className="form-control"
+                                        placeholder="description"
                                     />
                                     <ErrorMessage
                                         name="description"

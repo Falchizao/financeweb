@@ -81,7 +81,7 @@ const AddAccount: React.FC = () => {
                             <div>
                                 <div className="form-group">
                                     <label htmlFor="bank"> Bank </label>
-                                    <Field name="bank" type="text" className="form-control" />
+                                    <Field name="bank" type="text" className="form-control" placeholder="bank name"/>
                                     <ErrorMessage
                                         name="bank"
                                         component="div"
@@ -90,7 +90,7 @@ const AddAccount: React.FC = () => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="code"> Code </label>
-                                    <Field name="code" type="text" className="form-control" />
+                                    <Field name="code" type="text" className="form-control" placeholder="bank code"/>
                                     <ErrorMessage
                                         name="code"
                                         component="div"
@@ -103,6 +103,7 @@ const AddAccount: React.FC = () => {
                                         name="agency"
                                         type="text"
                                         className="form-control"
+                                        placeholder="bank agency"
                                     />
                                     <ErrorMessage
                                         name="agency"

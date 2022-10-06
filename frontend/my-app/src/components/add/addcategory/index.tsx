@@ -54,7 +54,7 @@ const AddCategory: React.FC = () => {
                             <div>
                                 <div className="form-group">
                                     <label htmlFor="name"> Category Name </label>
-                                    <Field name="name" type="text" className="form-control" />
+                                    <Field name="name" type="text" className="form-control" placeholder="name" />
                                     <ErrorMessage
                                         name="name"
                                         component="div"
