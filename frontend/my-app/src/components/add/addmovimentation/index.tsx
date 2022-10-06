@@ -1,15 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from 'react-toastify'
-import { AddMovimentationsAxios } from '../../../services/authservice';
+import { AddMovimentationsAxios, GetAllAccounts, GetCategories } from '../../../services/authservice';
 import { getCustomParseMovimentation } from "../../../utils/parser";
 import { sleep } from "../../../services/dataservice";
+import { Account } from "../../../types/account";
+import { Category } from "../../../types/category";
 
 const AddMovimentation: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
     const [successful, setSuccessful] = useState<boolean>(false);
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const types = [{ id: '0', name: 'Receita' }, { id: '1', name: 'Despesa' }, { id: '2', name: 'Transferência' }];
+    useEffect(() => {
+        const userToken = localStorage.getItem('@FinanceWeb::user');
+        if (!userToken) {
+            navigate("/");
+            window.location.reload();
+        }
+        GetAllAccounts().then(response => {
+            setAccounts(response.data);
+            console.log(accounts);
+        });
+
+        GetCategories().then(response => {
+            setCategories(response.data);
+        });
+
+    }, [navigate]);
+
+    let typeSelected = 0;
+    let typeList = types.length > 0
+        && types.map((item: any, i: any) => {
+            return (
+                <option key={i} value={item.id}>{item.name}</option>
+            )
+        }, this);
+    let selectType = (e: any) => {
+        typeSelected = e.target.selectedIndex;
+    }
+
+    let accSelected = 0;
+    let accList = accounts.length > 0 && accounts.map((item, i) => {
+        console.log(item)
+        return (
+            <option key={i} value={item.id}>{item.bank.concat(' - ')
+            .concat(item.bank_branch)
+            .concat(' - ')
+            .concat(item.code)}</option>
+        )
+    }, this);
+    let selectAcc = (e: any) => {
+        accSelected = e.target.selectedIndex;
+    }
+
+    let categorySelected = 0;
+    let categoryList = categories.length > 0
+        && categories.map((item, i) => {
+            return (
+                <option key={i} value={item.id}>{item.name}</option>
+            )
+        }, this);
+    let selectCategory = (e: any) => {
+        categorySelected = e.target.selectedIndex;
+    }
+
 
     //Init da instance
     const initialValues: any = {
@@ -65,9 +123,9 @@ const AddMovimentation: React.FC = () => {
                 val &&
                 val.toString().length >= 1
         ).required("Required field!"),
-        transactionType: 
-            Yup.string().oneOf(['0','1','2'], "Transaction Type must be valid (0 for Revenue, 1 for Expense, 2 for Transfer)")
-        .required("Required field!"),
+        transactionType:
+            Yup.string().oneOf(['0', '1', '2'], "Transaction Type must be valid (0 for Revenue, 1 for Expense, 2 for Transfer)")
+                .required("Required field!"),
     });
 
     const handleRegister = (formValue: any) => {
@@ -126,6 +184,33 @@ const AddMovimentation: React.FC = () => {
                                         className="alert alert-danger"
                                     />
                                 </div>
+                                {/* <div className="form-group"> */}
+                                {/* <label htmlFor="type" style={{ display: "block" }}>
+                                        Account Type
+                                    </label>
+                                    <select
+                                        name="types"
+                                        value={values.color}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        style={{ display: "block" }}
+                                    >
+                                        <option value="" label="Select a color">
+                                            Select a type{" "}
+                                        </option>
+                                        <option value="red" label="red">
+                                            {" "}
+                                            red
+                                        </option>
+                                        <option value="blue" label="blue">
+                                            blue
+                                        </option>
+                                        <option value="green" label="green">
+                                            green
+                                        </option>
+                                    </select>
+                                    { && <div className="input-feedback">{errors.color}</div>}
+                                </div> */}
                                 <div className="form-group">
                                     <label htmlFor="value"> Value R$ </label>
                                     <Field name="value" type="text" className="form-control" />
@@ -161,6 +246,33 @@ const AddMovimentation: React.FC = () => {
                                         className="alert alert-danger"
                                     />
                                 </div>
+                                {/* <div className="form-group">
+                                    <label htmlFor="type" style={{ display: "block" }}>
+                                        Account Type
+                                    </label>
+                                    <select
+                                        name="types"
+                                        value={values.color}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        style={{ display: "block" }}
+                                    >
+                                        <option value="" label="Select a color">
+                                            Select a type{" "}
+                                        </option>
+                                        <option value="red" label="red">
+                                            {" "}
+                                            red
+                                        </option>
+                                        <option value="blue" label="blue">
+                                            blue
+                                        </option>
+                                        <option value="green" label="green">
+                                            green
+                                        </option>
+                                    </select>
+                                    { && <div className="input-feedback">{errors.color}</div>}
+                                </div> */}
                                 <div className="form-group">
                                     <label htmlFor="paymentDate"> Payment Date </label>
                                     <Field
@@ -200,19 +312,52 @@ const AddMovimentation: React.FC = () => {
                                         className="alert alert-danger"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="transactionType"> Transaction type </label>
-                                    <Field
-                                        name="transactionType"
-                                        type="text"
-                                        className="form-control"
-                                    />
-                                    <ErrorMessage
-                                        name="transactionType"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+                                <div className=" mb-2">
+                                    <div><label htmlFor="type" className="m-1"> Category </label></div>
+                                    <select onChange={selectCategory}>
+                                        {categoryList}
+                                    </select>
                                 </div>
+                                <div className="mt-1 mb-2">
+                                    <div><label htmlFor="type" className="m-1"> Account </label></div>
+                                    <select onChange={selectAcc}>
+                                        {accList}
+                                    </select>
+                                </div>
+                                
+                                <div className="mt-1 mb-4">
+                                    <div><label htmlFor="type" className="m-1"> Type </label></div>
+                                    <select onChange={selectType}>
+                                        {typeList}
+                                    </select>
+                                </div>
+                                {/* <div className="form-group">
+                                    <label htmlFor="type" style={{ display: "block" }}>
+                                        Account Type
+                                    </label>
+                                    <select
+                                        name="types"
+                                        value={values.color}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        style={{ display: "block" }}
+                                    >
+                                        <option value="" label="Select a color">
+                                            Select a type{" "}
+                                        </option>
+                                        <option value="red" label="red">
+                                            {" "}
+                                            red
+                                        </option>
+                                        <option value="blue" label="blue">
+                                            blue
+                                        </option>
+                                        <option value="green" label="green">
+                                            green
+                                        </option>
+                                    </select>
+                                    { && <div className="input-feedback">{errors.color}</div>}
+                                </div> */}
                                 <div className="form-group m-1">
                                     <button type="submit" className="btn btn-primary btn-block">Register</button>
                                 </div>
