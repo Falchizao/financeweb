@@ -1,9 +1,9 @@
 package br.edu.utfpr.pb.pw25s.server.handler.exceptions;
 
-public class UserInvalidException extends RuntimeException{
+public class ObjectInvalidException extends RuntimeException{
     private String message;
 
-    public UserInvalidException(String message){
+    public ObjectInvalidException(String message){
         super(message);
     }
 }

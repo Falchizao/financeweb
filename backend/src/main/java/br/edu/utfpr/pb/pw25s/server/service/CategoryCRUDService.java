@@ -2,7 +2,7 @@ package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.CategoryDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
-import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInsertionConflictException;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInvalidException;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
@@ -51,7 +51,7 @@ public class CategoryCRUDService extends IService<CategoryDTO> {
         try{
             category = categoryRepository.save(modelMapper.map(model, Category.class));
         }catch(Exception e){
-            throw new ObjectInsertionConflictException("Category data is invalid!");
+            throw new ObjectInvalidException("Category name already taken!");
         }
 
         return modelMapper.map(category, CategoryDTO.class);

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { AddAccountAxios } from '../../../services/authservice';
 import { getCustomParse } from "../../../utils/parser";
 import { sleep } from "../../../services/dataservice";
+import './styles.css'
 
 const AddAccount: React.FC = () => {
 
@@ -26,7 +27,7 @@ const AddAccount: React.FC = () => {
             )
         }, this);
 
-    let selectType = (e : any) => {
+    let selectType = (e: any) => {
         typeSelected = e.target.selectedIndex;
     }
 
@@ -67,63 +68,64 @@ const AddAccount: React.FC = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <h1>Register a new Account!</h1>
-                {/* Validation */}
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleRegister}
-                >
-                    <Form>
-                        {!successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="bank"> Bank </label>
-                                    <Field name="bank" type="text" className="form-control" placeholder="bank name"/>
-                                    <ErrorMessage
-                                        name="bank"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+        <div className="container m-5">
+            <div className="col-md-12">
+                <div className="card card-container bg-navyblue">
+                    <h1>Register a new Account!</h1>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleRegister}
+                    >
+                        <Form>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="bank"> Bank </label>
+                                        <Field name="bank" type="text" className="form-control" placeholder="bank name" />
+                                        <ErrorMessage
+                                            name="bank"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="code"> Code </label>
+                                        <Field name="code" type="text" className="form-control" placeholder="bank code" />
+                                        <ErrorMessage
+                                            name="code"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="agency"> Agency </label>
+                                        <Field
+                                            name="agency"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="bank agency"
+                                        />
+                                        <ErrorMessage
+                                            name="agency"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="mt-1 mb-4">
+                                        <div><label htmlFor="type" className="m-1"> Type </label></div>
+                                        <select onChange={selectType}>
+                                            {typeList}
+                                        </select>
+                                    </div>
+                                    <div className="form-group m-1">
+                                        <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="code"> Code </label>
-                                    <Field name="code" type="text" className="form-control" placeholder="bank code"/>
-                                    <ErrorMessage
-                                        name="code"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="agency"> Agency </label>
-                                    <Field
-                                        name="agency"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="bank agency"
-                                    />
-                                    <ErrorMessage
-                                        name="agency"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="mt-1 mb-4">
-                                    <div><label htmlFor="type" className="m-1"> Type </label></div>
-                                    <select onChange={selectType}>
-                                        {typeList}
-                                    </select>
-                                </div>
-                                <div className="form-group m-1">
-                                    <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                </div>
-                            </div>
-                        )}
-                    </Form>
-                </Formik>
+                            )}
+                        </Form>
+                    </Formik>
+                </div>
             </div>
         </div>
     );

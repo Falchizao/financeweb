@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { User } from "../../../types/user";
 import { UserAuthenticate } from '../../../services/authservice';
 import { sleep } from "../../../services/dataservice";
+import './styles.css'
 
 const Register: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -51,56 +52,58 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <h1>FinanceWeb Register</h1>
-                {/* Validation */}
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}//Regras
-                    onSubmit={handleRegister}
-                >
-                    <Form>
-                        {!successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="username"> Username </label>
-                                    <Field name="username" type="text" className="form-control" />
-                                    <ErrorMessage
-                                        name="username"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+        <div className="container m-5">
+            <div className="col-md-12">
+                <div className="card card-container bg-navyblue">
+                    <h1>FinanceWeb Register</h1>
+                    {/* Validation */}
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}//Regras
+                        onSubmit={handleRegister}
+                    >
+                        <Form>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="username"> Username </label>
+                                        <Field name="username" type="text" className="form-control me-1" />
+                                        <ErrorMessage
+                                            name="username"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="displayName"> Display Name </label>
+                                        <Field name="displayName" type="text" className="form-control me-1" />
+                                        <ErrorMessage
+                                            name="displayName"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="password"> Password </label>
+                                        <Field
+                                            name="password"
+                                            type="password"
+                                            className="form-control me-1"
+                                        />
+                                        <ErrorMessage
+                                            name="password"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group m-1">
+                                        <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="displayName"> Display Name </label>
-                                    <Field name="displayName" type="text" className="form-control" />
-                                    <ErrorMessage
-                                        name="displayName"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="password"> Password </label>
-                                    <Field
-                                        name="password"
-                                        type="password"
-                                        className="form-control"
-                                    />
-                                    <ErrorMessage
-                                        name="password"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group m-1">
-                                    <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                </div>
-                            </div>
-                        )}
-                    </Form>
-                </Formik>
+                            )}
+                        </Form>
+                    </Formik>
+                </div>
             </div>
         </div>
     );

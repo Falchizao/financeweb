@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { toast } from 'react-toastify'
 import { AddCategoryAxios } from '../../../services/authservice';
 import { sleep } from "../../../services/dataservice";
+import './styles.css'
 
 const AddCategory: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -40,34 +41,35 @@ const AddCategory: React.FC = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <h1>Register a new category!</h1>
-                {/* Validation */}
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}//Regras
-                    onSubmit={handleRegister}
-                >
-                    <Form>
-                        {!successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="name"> Category Name </label>
-                                    <Field name="name" type="text" className="form-control" placeholder="name" />
-                                    <ErrorMessage
-                                        name="name"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+        <div className="container m-5">
+            <div className="col-md-12">
+                <div className="card card-container bg-navyblue">
+                    <h1>Register a new category!</h1>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}//Regras
+                        onSubmit={handleRegister}
+                    >
+                        <Form>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="name"> Category Name </label>
+                                        <Field name="name" type="text" className="form-control" placeholder="name" />
+                                        <ErrorMessage
+                                            name="name"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group m-1">
+                                        <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                    </div>
                                 </div>
-                                <div className="form-group m-1">
-                                    <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                </div>
-                            </div>
-                        )}
-                    </Form>
-                </Formik>
+                            )}
+                        </Form>
+                    </Formik>
+                </div>
             </div>
         </div>
     );

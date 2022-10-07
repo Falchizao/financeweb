@@ -2,7 +2,7 @@ package br.edu.utfpr.pb.pw25s.server.service;
 
 import br.edu.utfpr.pb.pw25s.server.dto.UserDTO;
 import br.edu.utfpr.pb.pw25s.server.generic.IService;
-import br.edu.utfpr.pb.pw25s.server.handler.exceptions.UserInvalidException;
+import br.edu.utfpr.pb.pw25s.server.handler.exceptions.ObjectInvalidException;
 import br.edu.utfpr.pb.pw25s.server.handler.modelException.ResourceNotFound;
 import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.UserRepository;
@@ -54,7 +54,7 @@ public class UserCRUDService extends IService<UserDTO> {
         try{
             user = userRepository.save(modelMapper.map(dto, User.class));
         }catch (Exception e){
-            throw new UserInvalidException("Credenciais já utilizadas! Tente novamente com outro username e senha!");
+            throw new ObjectInvalidException("Credenciais já utilizadas! Tente novamente com outro username e senha!");
         }
 
         return modelMapper.map(user, UserDTO.class);

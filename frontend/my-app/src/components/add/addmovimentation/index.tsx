@@ -8,6 +8,7 @@ import { getCustomParseMovimentation } from "../../../utils/parser";
 import { sleep } from "../../../services/dataservice";
 import { Account } from "../../../types/account";
 import { Category } from "../../../types/category";
+import './styles.css'
 
 const AddMovimentation: React.FC = () => {
     let navigate: NavigateFunction = useNavigate();
@@ -34,7 +35,7 @@ const AddMovimentation: React.FC = () => {
 
         GetCategories().then(response => {
             setCategories(response.data);
-            
+
         });
 
     }, [navigate]);
@@ -52,9 +53,9 @@ const AddMovimentation: React.FC = () => {
     let accList = accounts.length > 0 && accounts.map((item, i) => {
         return (
             <option key={i} value={item.id}>{item.bank.concat(' - ')
-            .concat(item.code)
-            .concat(' - ')
-            .concat(item.bank_branch)}</option>
+                .concat(item.code)
+                .concat(' - ')
+                .concat(item.bank_branch)}</option>
         )
     }, this);
     let selectAcc = (e: any) => {
@@ -102,9 +103,9 @@ const AddMovimentation: React.FC = () => {
 
     const handleRegister = (formValue: any) => {
         debugger;
-        if(accounts.length > 0 && accSelected === 0)accSelected = accounts[0].id;
-        if(categories.length > 0 && categorySelected === 0) categorySelected = categories[0].id;
-        AddMovimentationsAxios(getCustomParseMovimentation(formValue,typeSelected,accSelected, categorySelected)).then(async (response) => {
+        if (accounts.length > 0 && accSelected === 0) accSelected = accounts[0].id;
+        if (categories.length > 0 && categorySelected === 0) categorySelected = categories[0].id;
+        AddMovimentationsAxios(getCustomParseMovimentation(formValue, typeSelected, accSelected, categorySelected)).then(async (response) => {
             toast.info('Registered with success');
             setSuccessful(true);
 
@@ -120,109 +121,110 @@ const AddMovimentation: React.FC = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <h1>Register a new transaction!</h1>
-                {/* Validation */}
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}//Regras
-                    onSubmit={handleRegister}
-                >
-                    <Form>
-                        {!successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="value"> Value R$ </label>
-                                    <Field name="value" type="text" className="form-control" placeholder="value"/>
-                                    <ErrorMessage
-                                        name="value"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
+        <div className="container m-5">
+            <div className="col-md-12">
+                <div className="card card-container bg-navyblue">
+                    <h1>Register a new transaction!</h1>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}//Regras
+                        onSubmit={handleRegister}
+                    >
+                        <Form>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="value"> Value R$ </label>
+                                        <Field name="value" type="text" className="form-control" placeholder="value" />
+                                        <ErrorMessage
+                                            name="value"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="paidValue"> Paid Value R$ </label>
+                                        <Field
+                                            name="paidValue"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="paid value"
+                                        />
+                                        <ErrorMessage
+                                            name="paidValue"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="paymentDate"> Payment Date </label>
+                                        <Field
+                                            name="paymentDate"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="yyyy-mm-dd"
+                                        />
+                                        <ErrorMessage
+                                            name="paymentDate"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="due_date"> Due Date </label>
+                                        <Field
+                                            name="due_date"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="yyyy-mm-dd"
+                                        />
+                                        <ErrorMessage
+                                            name="due_date"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="description"> Description </label>
+                                        <Field
+                                            name="description"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="description"
+                                        />
+                                        <ErrorMessage
+                                            name="description"
+                                            component="div"
+                                            className="alert alert-danger"
+                                        />
+                                    </div>
+                                    <div className=" mb-2">
+                                        <div><label htmlFor="type" className="m-1"> Category </label></div>
+                                        <select onChange={selectCategory}>
+                                            {categoryList}
+                                        </select>
+                                    </div>
+                                    <div className="mt-1 mb-2">
+                                        <div><label htmlFor="type" className="m-1"> Account </label></div>
+                                        <select onChange={selectAcc}>
+                                            {accList}
+                                        </select>
+                                    </div>
+
+                                    <div className="mt-1 mb-4">
+                                        <div><label htmlFor="type" className="m-1"> Type </label></div>
+                                        <select onChange={selectType}>
+                                            {typeList}
+                                        </select>
+                                    </div>
+                                    <div className="form-group m-1">
+                                        <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                    </div>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="paidValue"> Paid Value R$ </label>
-                                    <Field
-                                        name="paidValue"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="paid value"
-                                    />
-                                    <ErrorMessage
-                                        name="paidValue"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="paymentDate"> Payment Date </label>
-                                    <Field
-                                        name="paymentDate"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="yyyy-mm-dd"
-                                    />
-                                    <ErrorMessage
-                                        name="paymentDate"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="due_date"> Due Date </label>
-                                    <Field
-                                        name="due_date"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="yyyy-mm-dd"
-                                    />
-                                    <ErrorMessage
-                                        name="due_date"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="description"> Description </label>
-                                    <Field
-                                        name="description"
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="description"
-                                    />
-                                    <ErrorMessage
-                                        name="description"
-                                        component="div"
-                                        className="alert alert-danger"
-                                    />
-                                </div>
-                                <div className=" mb-2">
-                                    <div><label htmlFor="type" className="m-1"> Category </label></div>
-                                    <select onChange={selectCategory}>
-                                        {categoryList}
-                                    </select>
-                                </div>
-                                <div className="mt-1 mb-2">
-                                    <div><label htmlFor="type" className="m-1"> Account </label></div>
-                                    <select onChange={selectAcc}>
-                                        {accList}
-                                    </select>
-                                </div>
-                                
-                                <div className="mt-1 mb-4">
-                                    <div><label htmlFor="type" className="m-1"> Type </label></div>
-                                    <select onChange={selectType}>
-                                        {typeList}
-                                    </select>
-                                </div>
-                                <div className="form-group m-1">
-                                    <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                </div>
-                            </div>
-                        )}
-                    </Form>
-                </Formik>
+                            )}
+                        </Form>
+                    </Formik>
+                </div>
             </div>
         </div>
     );
